@@ -3,6 +3,8 @@ package de.hypoport.einarbeitung;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.Model;
 
 public class StartInsGlueckPage extends WebPage {
@@ -26,5 +28,13 @@ public class StartInsGlueckPage extends WebPage {
 		add(new SpassMitLinksPanel("link1", counter,label));
 		add(new SpassMitLinksPanel("link2", counter,label));
 		
+		add(new BookmarkablePageLink<ZweitePage>("zweite", ZweitePage.class));
+		
+		add(new Link<Void>("zweiteAnders") {
+			@Override
+			public void onClick() {
+				setResponsePage(ZweitePage.class);
+			}
+		});
 	}
 }
