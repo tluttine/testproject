@@ -10,7 +10,7 @@ import org.apache.wicket.model.IModel;
 
 public class SpassMitLinksPanel extends Panel {
 
-	public SpassMitLinksPanel(String id, IModel<Integer> counter, final Label label) {
+	public SpassMitLinksPanel(String id, IModel<Integer> counter,final IModel<Integer> inc, final Label label) {
 		super(id, counter);
 		
 		add(new AjaxFallbackLink<Integer>("link",counter) {
@@ -20,7 +20,7 @@ public class SpassMitLinksPanel extends Panel {
 				if (target!=null) {
 					target.addComponent(label);
 				}
-				setModelObject(1+getModelObject());
+				setModelObject(inc.getObject()+getModelObject());
 			}
 		});
 	}
