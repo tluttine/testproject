@@ -8,8 +8,9 @@ public class ZweitePage extends WebPage{
 
 	
 	public ZweitePage() {
-		
-		add(new BookmarkablePageLink<WebPage>("erste", StartInsGlueckPage.class));
+		BookmarkablePageLink<WebPage> link = new BookmarkablePageLink<WebPage>("erste", StartInsGlueckPage.class);
+		link.setParameter("greeting","Willkommen zurück!");
+		add(link);
 
 	}
 }
