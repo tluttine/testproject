@@ -3,8 +3,10 @@ package de.hypoport.yatwitter.comments;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.validation.validator.StringValidator;
 
 import de.hypoport.yatwitter.login.LoginLink;
 import de.hypoport.yatwitter.login.LogoutLink;
@@ -33,8 +35,10 @@ public class TwitterCommentPage extends WebPage {
 			}
 
 		};
-		TextArea<String> textArea = new TextArea<String>("textAreaComment", commentAreaModel);
+		TextField<String> textArea = new TextField<String>("textAreaComment", commentAreaModel);
 		textArea.setRequired(true);
+		textArea.add(new StringValidator.MinimumLengthValidator(2));
+		textArea.add(new StringValidator.MaximumLengthValidator(140));
 		commentForm.add(textArea);
 		
 		add(commentForm);
