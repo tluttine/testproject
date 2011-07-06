@@ -40,7 +40,7 @@ public final class UserPresenter implements Serializable {
 
 		void setSelectedIndex(int i);
 
-		void getSelectedIndex();
+		int getSelectedIndex();
 
 		void clearForm();
 

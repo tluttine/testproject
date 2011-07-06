@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,10 +12,13 @@ import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 
 import de.hypoport.kaempke.model.User;
 import de.hypoport.kaempke.presenter.UserPresenter;
+import de.hypoport.yatwitter.login.LoginData;
 
 public class UserView extends Panel implements UserPresenter.Display {
 
@@ -31,9 +35,10 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private final static String ID_PANEL_FORM_BUTTON_REMOVE = "removeButton" + ID_PANEL_FORM;
 	private final static String ID_PANEL_FORM_BUTTON_EDIT = "editButton" + ID_PANEL_FORM;
 	private final static String ID_PANEL_FORM_BUTTON_NEW = "newButton" + ID_PANEL_FORM;
+	private final static String ID_PANEL_FORM_BUTTON_SAVE = "saveButton" + ID_PANEL_FORM;
 
 	private FeedbackPanel feedbackPanel;
-	private Form<Void> form;
+	private Form<User> form;
 	private ListChoice<String> userList;
 	private AjaxButton createNewUserButton;
 	private AjaxButton editUserButton;
@@ -41,6 +46,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private AjaxButton saveUserButton;
 	private Label labelFirstname;
 	private Label labelLastname;
+	private IModel<User> formModel = new CompoundPropertyModel(new User("",""));
 
 	private String selectedUser;
 
@@ -54,66 +60,107 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 		feedbackPanel = new FeedbackPanel(ID_PANEL_FEEDBACK_PANEL);
 		add(feedbackPanel);
+		
+		saveUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_SAVE) {
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
 
-		form = new Form<Void>(ID_PANEL_FORM);
+		form = new Form<User>(ID_PANEL_FORM,formModel);
+		form.add(saveUserButton);
 		userList = new ListChoice<String>(ID_PANEL_FORM_LIST_USERS, new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
 		userList.setMaxRows(5);
 		form.add(userList);
-		labelFirstname = new Label(ID_PANEL_FORM_LABEL_FIRSTNAME);
-		labelLastname = new Label(ID_PANEL_FORM_LABEL_LASTNAME);
+		labelFirstname = new Label(ID_PANEL_FORM_LABEL_FIRSTNAME,"Vorname");
+		labelLastname = new Label(ID_PANEL_FORM_LABEL_LASTNAME,"Nachname");
 		form.add(labelFirstname);
 		form.add(labelLastname);
 		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_FIRSTNAME));
+		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_LASTNAME));
+		form.add(saveUserButton);
+		
+		editUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_EDIT) {
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		
+		add(editUserButton);
+		
+		removeUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_REMOVE) {
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		add(removeUserButton);
+		createNewUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_NEW) {
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		add(createNewUserButton);
 	}
 
 	public String getFirstname() {
-		// TODO Auto-generated method stub
-		return null;
+		return form.getModelObject().getFirstname();
 	}
 
 	public String getLastname() {
-		// TODO Auto-generated method stub
-		return null;
+		return form.getModelObject().getLastname();
 	}
 
 	public void setErrorMessage(String error) {
-		// TODO Auto-generated method stub
-
+		error(error);
 	}
 
 	public void setWarningMessage(String warning) {
-		// TODO Auto-generated method stub
-
+		warn(warning);
 	}
 
 	public void setInfoMessage(String info) {
-		// TODO Auto-generated method stub
-
+		info(info);
 	}
 
 	public void setUsers(List<User> users) {
-		// TODO Auto-generated method stub
+		userList.getChoices().clear();
+        final List<String> userNames = new ArrayList<String>();
+        for (int i = 0; i<users.size(); i++) {
+                userNames.add(users.get(i).getFirstname()+" "+users.get(i).getLastname());
+                
+        }
+        
+        userList.setChoices(userNames);
 
 	}
 
 	public void setSelectedIndex(int i) {
-		// TODO Auto-generated method stub
-
+		selectedUser = userList.getChoices().get(i);
 	}
 
-	public void getSelectedIndex() {
-		// TODO Auto-generated method stub
-
+	public int getSelectedIndex() {
+		return userList.getChoices().indexOf(selectedUser);
 	}
 
 	public void clearForm() {
-		// TODO Auto-generated method stub
-
+		form.getModelObject().setFirstname("");
+		form.getModelObject().setLastname("");
 	}
 
 	public void clearSelection() {
-		// TODO Auto-generated method stub
-
+		selectedUser = null;
 	}
 
 	public void setSelectedUser(User user) {

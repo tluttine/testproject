@@ -26,4 +26,9 @@ public class TwitterSession extends WebSession {
 	public boolean hasValidLogin() {
 		return loginData!=null;
 	}
+
+	public String getLoggedUsername() {
+		return loginData.getName();
+	}
+	
 }
