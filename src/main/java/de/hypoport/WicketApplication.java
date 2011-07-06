@@ -3,6 +3,8 @@ package de.hypoport;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
+import page.ExcitabilityPage;
+
 import de.hypoport.einarbeitung.StartInsGlueckPage;
 
 /**
@@ -24,7 +26,7 @@ public class WicketApplication extends WebApplication
 	 */
 	public Class<? extends WebPage> getHomePage()
 	{
-		return StartInsGlueckPage.class;
+		return ExcitabilityPage.class;
 	}
 
 }
