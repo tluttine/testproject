@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
 import de.hypoport.einarbeitung.StartInsGlueckPage;
+import de.hypoport.einarbeitung.edittest.EditPage;
 
 /**
  * Application object for your web application. If you want to run this application without deploying, run the Start class.
@@ -24,7 +25,7 @@ public class WicketApplication extends WebApplication
 	 */
 	public Class<? extends WebPage> getHomePage()
 	{
-		return StartInsGlueckPage.class;
+		return EditPage.class;
 	}
 
 }
