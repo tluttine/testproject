@@ -4,8 +4,16 @@
 </head>
 <body>
 	<h1>Ich bin da?</h1> (zur <a wicket:id="zweite">zur zweiten</a>, oder <a wicket:id="zweiteAnders">so</a>)
+	<div wicket:id="feedback"></div>
 	<span wicket:id="label">Quatsch</span>
-	
+    <form wicket:id="form" style="background-color: #c0c0c0">
+    	<input type="text" wicket:id="name"/>
+    	<input type="submit" value="update"/>
+    </form>
+    <form wicket:id="username">
+    	<input type="text" wicket:id="personname"/>
+    	<input type="submit" value="update"/>
+    </form>	
 	<div style="border:1px solid red;">
 		<h2>Komponenten</h2>
 		<div wicket:id="hallo"></div>
