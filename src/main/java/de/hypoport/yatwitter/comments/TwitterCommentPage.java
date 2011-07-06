@@ -2,7 +2,6 @@ package de.hypoport.yatwitter.comments;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
@@ -33,8 +32,8 @@ public class TwitterCommentPage extends WebPage {
 				TweetContainer.addTweet(username, comment);
 				setResponsePage(TweetsPage.class);
 			}
-
 		};
+		
 		TextField<String> textArea = new TextField<String>("textAreaComment", commentAreaModel);
 		textArea.setRequired(true);
 		textArea.add(new StringValidator.MinimumLengthValidator(2));
@@ -45,5 +44,4 @@ public class TwitterCommentPage extends WebPage {
 		add(new LogoutLink("logoutLink"));
 		add(new LoginLink("loginLink"));
 	}
-
 }
