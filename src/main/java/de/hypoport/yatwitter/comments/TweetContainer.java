@@ -3,9 +3,7 @@ package de.hypoport.yatwitter.comments;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class TweetContainer {
 //	private static Map<String, List<String>> tweets = new HashMap<String, List<String>>();
@@ -25,7 +23,9 @@ public class TweetContainer {
 		int ende = tweets.size();
 		int start = ende-max;
 		if (start<0) start=0;
-		return Collections.unmodifiableList(tweets.subList(start, ende));
+		List<Tweet> subList = tweets.subList(start, ende);
+		Collections.reverse(subList);
+		return Collections.unmodifiableList(subList);
 	}
 	
 	public static class Tweet {

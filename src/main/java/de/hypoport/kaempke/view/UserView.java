@@ -3,7 +3,6 @@ package de.hypoport.kaempke.view;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,9 +17,13 @@ import org.apache.wicket.model.PropertyModel;
 
 import de.hypoport.kaempke.model.User;
 import de.hypoport.kaempke.presenter.UserPresenter;
-import de.hypoport.yatwitter.login.LoginData;
 
 public class UserView extends Panel implements UserPresenter.Display {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private final UserPresenter presenter;
 
@@ -46,7 +49,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private AjaxButton saveUserButton;
 	private Label labelFirstname;
 	private Label labelLastname;
-	private IModel<User> formModel = new CompoundPropertyModel(new User("",""));
+	private IModel<User> formModel = new CompoundPropertyModel<User>(new User("", ""));
 
 	private String selectedUser;
 
@@ -60,55 +63,71 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 		feedbackPanel = new FeedbackPanel(ID_PANEL_FEEDBACK_PANEL);
 		add(feedbackPanel);
-		
+
 		saveUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_SAVE) {
-			
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				// TODO Auto-generated method stub
-				
+				presenter.saveAction();
 			}
 		};
 
-		form = new Form<User>(ID_PANEL_FORM,formModel);
+		form = new Form<User>(ID_PANEL_FORM, formModel);
 		form.add(saveUserButton);
 		userList = new ListChoice<String>(ID_PANEL_FORM_LIST_USERS, new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
 		userList.setMaxRows(5);
 		form.add(userList);
-		labelFirstname = new Label(ID_PANEL_FORM_LABEL_FIRSTNAME,"Vorname");
-		labelLastname = new Label(ID_PANEL_FORM_LABEL_LASTNAME,"Nachname");
+		labelFirstname = new Label(ID_PANEL_FORM_LABEL_FIRSTNAME, "Vorname");
+		labelLastname = new Label(ID_PANEL_FORM_LABEL_LASTNAME, "Nachname");
 		form.add(labelFirstname);
 		form.add(labelLastname);
 		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_FIRSTNAME));
 		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_LASTNAME));
 		form.add(saveUserButton);
-		
+
 		editUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_EDIT) {
-			
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				// TODO Auto-generated method stub
-				
+				presenter.editAction();
 			}
 		};
-		
+
 		add(editUserButton);
-		
+
 		removeUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_REMOVE) {
-			
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				// TODO Auto-generated method stub
-				
+				presenter.removeAction();
 			}
 		};
 		add(removeUserButton);
 		createNewUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_NEW) {
-			
+
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				// TODO Auto-generated method stub
-				
+				presenter.createNewUserAction();
 			}
 		};
 		add(createNewUserButton);
@@ -136,13 +155,13 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	public void setUsers(List<User> users) {
 		userList.getChoices().clear();
-        final List<String> userNames = new ArrayList<String>();
-        for (int i = 0; i<users.size(); i++) {
-                userNames.add(users.get(i).getFirstname()+" "+users.get(i).getLastname());
-                
-        }
-        
-        userList.setChoices(userNames);
+		final List<String> userNames = new ArrayList<String>();
+		for (int i = 0; i < users.size(); i++) {
+			userNames.add(users.get(i).getFirstname() + " " + users.get(i).getLastname());
+
+		}
+
+		userList.setChoices(userNames);
 
 	}
 

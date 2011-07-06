@@ -6,6 +6,8 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
+import de.hypoport.yatwitter.login.LoginLink;
+import de.hypoport.yatwitter.login.LogoutLink;
 import de.hypoport.yatwitter.login.sessions.OnlyWithLogin;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
 
@@ -36,8 +38,8 @@ public class TwitterCommentPage extends WebPage {
 		commentForm.add(textArea);
 		
 		add(commentForm);
-
-
+		add(new LogoutLink("logoutLink"));
+		add(new LoginLink("loginLink"));
 	}
 
 }
