@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>Edit</title>
+	</head>
+	<body>
+		<div wicket:id="feedback"></div>
+		<div style="border:1px solid black;">
+			<h2>Daten</h2>
+			User: <span wicket:id="vorname"></span> <span wicket:id="name"></span><br>
+			<a wicket:id="editlink">bearbeiten</a>
+		</div>
+		<form wicket:id="form">
+			<label>Vorname</label><input type="text" wicket:id="vorname"><br>
+			<label>Name</label><input type="text" wicket:id="name"><br>
+			<input type="submit" value="update"/>
+		</form>
+	</body>
+</html>
