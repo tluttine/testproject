@@ -66,7 +66,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.editUserButton = new AjaxButton("userViewEditButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
-				presenter.editAction();
+	
 			}
 		};
 

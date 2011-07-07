@@ -69,13 +69,17 @@ public final class UserPresenter implements Serializable {
 
 		if (null == selectedUser) {
 			selectedUser = new User(firstname, lastname);
+		} 
+		
+		if ( !users.contains(selectedUser)) {
+			users.add(selectedUser);
 		}
 
-		users.add(selectedUser);
+		
 		display.setUsers(users);
 		final int selectedUserIndex = users.indexOf(selectedUser);
 		display.setSelectedIndex(selectedUserIndex);
-		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich erstellt.");
+		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
 	}
 
 	public void createNewUserAction() {
@@ -97,25 +101,6 @@ public final class UserPresenter implements Serializable {
 		display.clearSelection();
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich entfernt.");
 		selectedUser = null;
-	}
-
-	public void editAction() {
-		if (null == selectedUser) {
-			display.setWarningMessage("Es wurde kein Benutzer zum bearbeiten ausgewählt.");
-			return;
-		}
-
-		if (!displayHasValidForm()) {
-			return;
-		}
-
-		final String firstname = display.getFirstname();
-		final String lastname = display.getLastname();
-
-		selectedUser.setFirstname(firstname);
-		selectedUser.setLastname(lastname);
-
-		display.setInfoMessage("Der Benutzer wurde erfolgreich bearbeitet.");
 	}
 
 	private boolean displayHasValidForm() {
