@@ -48,7 +48,6 @@ public class EditPage extends WebPage {
 		add(form);
 
 		add(new Link<Void>("editlink") {
-			private static final long serialVersionUID = 7559174721365226549L;
 
 			@Override
 			public void onClick() {
