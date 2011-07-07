@@ -22,7 +22,8 @@ public class TweetContainer {
 	public static List<Tweet> getTweets(int max) {
 		int ende = tweets.size();
 		int start = Math.max(0, ende - max);
-		List<Tweet> subList = tweets.subList(start, ende);
+		List<Tweet> subList = new ArrayList<Tweet>(tweets.subList(start, ende));	
+		
 		Collections.reverse(subList);
 		return Collections.unmodifiableList(subList);
 	}
