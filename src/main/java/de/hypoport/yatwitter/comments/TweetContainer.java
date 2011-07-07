@@ -2,7 +2,6 @@ package de.hypoport.yatwitter.comments;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class TweetContainer {
@@ -26,35 +25,5 @@ public class TweetContainer {
 		
 		Collections.reverse(subList);
 		return Collections.unmodifiableList(subList);
-	}
-	
-	public static class Tweet {
-		String user;
-		String message;
-		Date date;
-		public Tweet(String username, String comment) {
-			user = username;
-			message = comment;
-			date=new Date();
-		}
-		public String getUser() {
-			return user;
-		}
-		public void setUser(String user) {
-			this.user = user;
-		}
-		public String getMessage() {
-			return message;
-		}
-		public void setMessage(String message) {
-			this.message = message;
-		}
-		public Date getDate() {
-			return date;
-		}
-		public void setDate(Date date) {
-			this.date = date;
-		}
-		
 	}
 }

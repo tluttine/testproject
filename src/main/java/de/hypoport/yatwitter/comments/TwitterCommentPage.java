@@ -13,7 +13,6 @@ import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.convert.converters.DateConverter;
 import org.apache.wicket.util.time.Duration;
 
-import de.hypoport.yatwitter.comments.TweetContainer.Tweet;
 import de.hypoport.yatwitter.events.AbstractEvent;
 import de.hypoport.yatwitter.events.IEventListener;
 import de.hypoport.yatwitter.events.NewTweetEvent;
