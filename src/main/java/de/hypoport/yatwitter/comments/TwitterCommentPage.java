@@ -7,10 +7,6 @@ import java.util.Locale;
 
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
 import org.apache.wicket.markup.html.basic.Label;
-<<<<<<< HEAD
-=======
-import org.apache.wicket.markup.html.form.Form;
->>>>>>> 4b6db0d9b6a8f87e7bbdbe6302f0e9bb3ccfa01f
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.util.convert.IConverter;
