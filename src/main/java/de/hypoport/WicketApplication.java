@@ -10,6 +10,7 @@ import org.apache.wicket.protocol.http.WebApplication;
 
 
 import de.hypoport.einarbeitung.StartInsGlueckPage;
+import de.hypoport.kaempke.MyHomePage;
 import de.hypoport.kaempke.view.UserView;
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.LoginPage;
@@ -36,8 +37,8 @@ public class WicketApplication extends WebApplication
 	protected void init() {
 		super.init();
 		
-		getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
-		getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
+		//getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
+		//getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
 	}
 	
 	/**

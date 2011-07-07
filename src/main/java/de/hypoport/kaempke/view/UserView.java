@@ -51,12 +51,15 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	private void initiaslize() {
 
-		this.feedbackPanel = new FeedbackPanel("userViewFeedbackpanel");
+		feedbackPanel = new FeedbackPanel("userViewFeedbackPanel");
+		feedbackPanel.setOutputMarkupId(true);
 
 		this.saveUserButton = new AjaxButton("userViewSaveButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.saveAction();
+				target.addComponent(feedbackPanel);
+				target.addComponent(userList);
 			}
 		};
 
@@ -81,18 +84,20 @@ public class UserView extends Panel implements UserPresenter.Display {
 			}
 		};
 
-		this.textFieldFirstname = new TextField<String>("userViewTextfieldFirstname");
-		this.textFieldLastname = new TextField<String>("userViewTextfieldLastname");
+		this.textFieldFirstname = new TextField<String>("firstname");
+		this.textFieldLastname = new TextField<String>("lastname");
 
 		this.userList = new ListChoice<String>("userViewUserlist", new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
 		this.userList.setMaxRows(5);
+		userList.setOutputMarkupId(true);
 		this.labelFirstname = new Label("userViewLabelFirstname", "Vorname");
 		this.labelLastname = new Label("userViewLabelLastname", "Nachname");
-		this.form = new Form<User>("userViewForm", formModel);
+		this.form = new Form<User>("formPanelId", formModel);
 
-		add(this.removeUserButton);
-		add(this.editUserButton);
-		add(this.feedbackPanel);
+		this.form.add(this.removeUserButton);
+		this.form.add(this.editUserButton);
+		
+		this.form.add(createNewUserButton);
 
 		this.form.add(saveUserButton);
 		this.form.add(userList);
@@ -100,11 +105,11 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.form.add(labelLastname);
 
 		this.form.add(textFieldFirstname);
-
 		this.form.add(textFieldLastname);
 		this.form.add(saveUserButton);
 
-		add(createNewUserButton);
+		add(feedbackPanel);
+		add(form);
 	}
 
 	public String getFirstname() {

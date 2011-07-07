@@ -1,6 +1,8 @@
 package de.hypoport.kaempke.model;
 
-public final class User {
+import java.io.Serializable;
+
+public final class User implements Serializable{
 	private String firstname;
 	private String lastname;
 	
@@ -10,6 +12,13 @@ public final class User {
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
+	
+	
+	public User() {
+		super();
+	}
+
+
 	public String getFirstname() {
 		return firstname;
 	}
