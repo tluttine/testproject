@@ -17,14 +17,16 @@ import de.hypoport.HomePage;
 import de.hypoport.yatwitter.comments.TweetsPage;
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
+import de.hypoport.yatwitter.pages.AbstractBasePage;
 
 
-public class LoginPage extends WebPage {
+public class LoginPage extends AbstractBasePage {
 
 	
 	public LoginPage() {
 		
-		add(new FeedbackPanel("feedback"));
+		setTitle("Loginseite");
+		setHeadline("Bitte anmelden");
 		
 		IModel<LoginData> formModel = new CompoundPropertyModel(new LoginData());
 		Form<LoginData> form = new Form<LoginData>("form",formModel)

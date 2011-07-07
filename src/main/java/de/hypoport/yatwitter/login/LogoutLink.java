@@ -12,19 +12,15 @@ public class LogoutLink extends Link<String> {
 
 	@Override
 	public void onClick() {
-		// TODO Auto-generated method stub
 		TwitterSession.get().invalidate();
 		setResponsePage(LoginPage.class);
 	}
 	
 	@Override
 	protected void onBeforeRender() {
-		// TODO Auto-generated method stub
 		super.onBeforeRender();
 		
-		final TwitterSession twitterSession = TwitterSession.get();
-		boolean hasValidLogin = twitterSession.hasValidLogin();
-		setVisible(hasValidLogin);
+		setVisible(TwitterSession.get().hasValidLogin());
 	}
 	
 	@Override

@@ -1,24 +1,31 @@
 package de.hypoport.yatwitter.comments;
 
+import java.util.List;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.validator.StringValidator;
 
+import de.hypoport.yatwitter.comments.TweetContainer.Tweet;
 import de.hypoport.yatwitter.login.LoginLink;
 import de.hypoport.yatwitter.login.LogoutLink;
 import de.hypoport.yatwitter.login.sessions.OnlyWithLogin;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
+import de.hypoport.yatwitter.pages.AbstractBasePage;
 
 @OnlyWithLogin
-public class TwitterCommentPage extends WebPage {
+public class TwitterCommentPage extends AbstractBasePage {
 
 	private Form<String> commentForm;
 
 	public TwitterCommentPage() {
-		add(new FeedbackPanel("feedback"));
+		
+		setTitle("Eigene Tweets");
+		setHeadline("Was machst Du?");
 		
 		final Model<String> commentAreaModel = Model.of("");
 		commentForm = new Form<String>("commentFormId") {
@@ -30,7 +37,7 @@ public class TwitterCommentPage extends WebPage {
 				final String username = session.getLoggedUsername();
 
 				TweetContainer.addTweet(username, comment);
-				setResponsePage(TweetsPage.class);
+//				setResponsePage(TweetsPage.class);
 			}
 		};
 		
@@ -43,5 +50,8 @@ public class TwitterCommentPage extends WebPage {
 		add(commentForm);
 		add(new LogoutLink("logoutLink"));
 		add(new LoginLink("loginLink"));
+		
+		add(new TweetsPanel("tweets", (IModel<? extends List<? extends Tweet>>) new TweetsModel()));
+
 	}
 }

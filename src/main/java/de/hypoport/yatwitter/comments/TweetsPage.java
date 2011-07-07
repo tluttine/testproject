@@ -8,31 +8,21 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 
 import de.hypoport.yatwitter.comments.TweetContainer.Tweet;
 import de.hypoport.yatwitter.login.LogoutLink;
+import de.hypoport.yatwitter.pages.AbstractBasePage;
 
-public final class TweetsPage extends WebPage{
+public final class TweetsPage extends AbstractBasePage {
 	
 	public TweetsPage() {
 		
-		IModel<? extends List<? extends Tweet>> model=new LoadableDetachableModel<List<? extends Tweet>>() {
-			@Override
-			protected List<? extends Tweet> load() {
-				return TweetContainer.getTweets(10);
-			}
-		};
+		setTitle("Tweets");
+		setHeadline("Tweets");
 		
-		add(new ListView<Tweet>("tweets",model) {
-			@Override
-			protected void populateItem(ListItem<Tweet> item) {
-				item.add(new Label("user",item.getModelObject().getUser()));
-				item.add(new Label("message",item.getModelObject().getMessage()));
-				item.add(new Label("date",Model.of(item.getModelObject().getDate())));
-			}
-		});
+		add(new TweetsPanel("tweets", (IModel<? extends List<? extends Tweet>>) new TweetsModel()));
+		
 		add(new Link<String>("commentLink") {
 			@Override
 			public void onClick() {

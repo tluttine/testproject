@@ -1,16 +1,5 @@
-<html>
-<head>
-	<title>Comments</title>
-</head>
-<body>
-	<h1>Geht</h1>
-	
-	<table>
-		<tr wicket:id="tweets">
-			<td>[<span wicket:id="date">dann wars</span>] <span wicket:id="message">Hier steht was</span> (<span wicket:id="user">Der wars</span>)</td>
-		</tr>
-	</table>
+<wicket:extend>
+	<wicket:container wicket:id="tweets"></wicket:container>
 	<a wicket:id="commentLink">kommentieren</a>
 	<a wicket:id="logoutLink">logout</a>
-</body>
-</html>
+</wicket:extend>

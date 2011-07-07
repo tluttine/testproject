@@ -1,13 +1,9 @@
-<html>
-<head>
-	<title>Comments</title>
-</head>
-<body>
-<div wicket:id="feedback"></div>
+<wicket:extend>
     <form wicket:id="commentFormId">
     	<input type="text" wicket:id="textAreaComment"/><br>
     	<input type="submit" value="Kommentieren"/>
-    </form>	</body>
-    	 <a wicket:id="loginLink">login</a>
-      	<a wicket:id="logoutLink">logout</a>
-</html>
+    </form>	
+	<wicket:container wicket:id="tweets"></wicket:container>
+ 	 <a wicket:id="loginLink">login</a>
+  	<a wicket:id="logoutLink">logout</a>
+</wicket:extend>
