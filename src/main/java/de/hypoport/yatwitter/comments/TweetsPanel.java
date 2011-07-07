@@ -3,6 +3,7 @@ package de.hypoport.yatwitter.comments;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -24,6 +25,7 @@ public class TweetsPanel extends Panel {
 				item.add(new TweetPanel("tweet", tweetModel));
 			}
 		});
+		
 
 	}
 

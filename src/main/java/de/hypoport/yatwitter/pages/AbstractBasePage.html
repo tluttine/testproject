@@ -19,6 +19,9 @@
 			margin:0px;
 			padding:20px;
 		}
+		#loginPanel {
+			background-color: fuchsia;
+		}
 	</style>
 </head>
 <body>
@@ -26,8 +29,11 @@
 		<h1 wicket:id="headline">Headline</h1>
 		<div wicket:id="feedback"></div>
 	</div>
+	
+
 	<div id="content">
 		<wicket:child />
 	</div>
+	<a wicket:id="logoutLink">logout</a>	
 </body>
 </html>

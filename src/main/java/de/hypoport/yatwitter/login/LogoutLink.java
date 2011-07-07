@@ -2,6 +2,7 @@ package de.hypoport.yatwitter.login;
 
 import org.apache.wicket.markup.html.link.Link;
 
+import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
 
 public class LogoutLink extends Link<String> {

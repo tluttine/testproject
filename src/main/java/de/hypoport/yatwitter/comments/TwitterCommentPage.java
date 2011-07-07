@@ -48,8 +48,6 @@ public class TwitterCommentPage extends AbstractBasePage {
 		commentForm.add(textArea);
 		
 		add(commentForm);
-		add(new LogoutLink("logoutLink"));
-		add(new LoginLink("loginLink"));
 		
 		add(new TweetsPanel("tweets", (IModel<? extends List<? extends Tweet>>) new TweetsModel()));
 

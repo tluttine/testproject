@@ -5,6 +5,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
+import de.hypoport.yatwitter.login.LoginPage;
+import de.hypoport.yatwitter.login.LoginPanel;
+import de.hypoport.yatwitter.login.LogoutLink;
+
 
 public abstract class AbstractBasePage extends WebPage {
 
@@ -19,6 +23,7 @@ public abstract class AbstractBasePage extends WebPage {
 		add(new Label("title",titleModel));
 		add(new Label("headline",headlineModel));
 		add(new FeedbackPanel("feedback"));
+		add(new LogoutLink("logoutLink"));
 	}
 	
 	protected void setTitle(String title) {

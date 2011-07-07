@@ -27,18 +27,6 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	private final UserPresenter presenter;
 
-	private final static String ID_PANEL = "PanelId";
-	private final static String ID_PANEL_FEEDBACK_PANEL = "panelFeedback" + ID_PANEL;
-	private final static String ID_PANEL_FORM = "form" + ID_PANEL;
-	private final static String ID_PANEL_FORM_LABEL_FIRSTNAME = "firstnameLabel" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_LABEL_LASTNAME = "lastnameLabel" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_TEXTFIELD_FIRSTNAME = "firstnameTextfield" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_TEXTFIELD_LASTNAME = "lastnameTextfield" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_LIST_USERS = "usersList" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_BUTTON_REMOVE = "removeButton" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_BUTTON_EDIT = "editButton" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_BUTTON_NEW = "newButton" + ID_PANEL_FORM;
-	private final static String ID_PANEL_FORM_BUTTON_SAVE = "saveButton" + ID_PANEL_FORM;
 
 	private FeedbackPanel feedbackPanel;
 	private Form<User> form;
@@ -50,86 +38,75 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private Label labelFirstname;
 	private Label labelLastname;
 	private IModel<User> formModel = new CompoundPropertyModel<User>(new User("", ""));
+	private TextField<String> textFieldFirstname;
+	private TextField<String> textFieldLastname;
 
 	private String selectedUser;
 
 	public UserView(String id) {
-		super(ID_PANEL);
+		super("userViewPanel");
 		presenter = new UserPresenter(this);
 		initiaslize();
 	}
 
 	private void initiaslize() {
 
-		feedbackPanel = new FeedbackPanel(ID_PANEL_FEEDBACK_PANEL);
-		add(feedbackPanel);
-
-		saveUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_SAVE) {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+		feedbackPanel = new FeedbackPanel("userViewFeedbackpanel");
+		
+		saveUserButton = new AjaxButton("userViewSaveButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				presenter.saveAction();
 			}
 		};
-
-		form = new Form<User>(ID_PANEL_FORM, formModel);
-		form.add(saveUserButton);
-		userList = new ListChoice<String>(ID_PANEL_FORM_LIST_USERS, new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
-		userList.setMaxRows(5);
-		form.add(userList);
-		labelFirstname = new Label(ID_PANEL_FORM_LABEL_FIRSTNAME, "Vorname");
-		labelLastname = new Label(ID_PANEL_FORM_LABEL_LASTNAME, "Nachname");
-		form.add(labelFirstname);
-		form.add(labelLastname);
-		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_FIRSTNAME));
-		form.add(new TextField<String>(ID_PANEL_FORM_TEXTFIELD_LASTNAME));
-		form.add(saveUserButton);
-
-		editUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_EDIT) {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+		
+		editUserButton = new AjaxButton("userViewEditButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				presenter.editAction();
 			}
 		};
 
-		add(editUserButton);
+		
 
-		removeUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_REMOVE) {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+		removeUserButton = new AjaxButton("userViewRemoveButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				presenter.removeAction();
 			}
 		};
-		add(removeUserButton);
-		createNewUserButton = new AjaxButton(ID_PANEL_FORM_BUTTON_NEW) {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+		
+		createNewUserButton = new AjaxButton("userViewCreateButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				presenter.createNewUserAction();
 			}
 		};
+		
+		textFieldFirstname = new TextField<String>("userViewTextfieldFirstname");
+		textFieldLastname = new TextField<String>("userViewTextfieldLastname");
+		
+		userList = new ListChoice<String>("userViewUserlist", new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
+		userList.setMaxRows(5);
+		labelFirstname = new Label("userViewLabelFirstname", "Vorname");
+		labelLastname = new Label("userViewLabelLastname", "Nachname");
+		form = new Form<User>("userViewForm", formModel);
+		
+		add(removeUserButton);
+		add(editUserButton);
+		add(feedbackPanel);
+		
+		form.add(saveUserButton);
+		form.add(userList);
+		form.add(labelFirstname);
+		form.add(labelLastname);
+		
+		form.add(textFieldFirstname);
+		
+		form.add(textFieldLastname);
+		form.add(saveUserButton);
+
+		
 		add(createNewUserButton);
 	}
 
