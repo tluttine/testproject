@@ -2,6 +2,7 @@ package de.hypoport.yatwitter.comments;
 
 import java.util.List;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -11,14 +12,22 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import de.hypoport.yatwitter.comments.TweetContainer.Tweet;
+import de.hypoport.yatwitter.events.AbstractEvent;
+import de.hypoport.yatwitter.events.IEventListener;
+import de.hypoport.yatwitter.events.NewTweetEvent;
 
 
-public class TweetsPanel extends Panel {
+public class TweetsPanel extends Panel implements IEventListener {
+
+	private WebMarkupContainer ajaxUpdate;
 
 	public TweetsPanel(String id, IModel<? extends List<? extends Tweet>> model) {
 		super(id);
 		
-		add(new ListView<Tweet>("tweets",model) {
+		ajaxUpdate = new WebMarkupContainer("ajaxUpdate");
+		ajaxUpdate.setOutputMarkupId(true);
+		
+		ajaxUpdate.add(new ListView<Tweet>("tweets",model) {
 			@Override
 			protected void populateItem(ListItem<Tweet> item) {
 				IModel<Tweet> tweetModel = item.getModel();
@@ -26,7 +35,13 @@ public class TweetsPanel extends Panel {
 			}
 		});
 		
+		add(ajaxUpdate);
 
 	}
 
+	public void notify(AbstractEvent event) {
+		if (event instanceof NewTweetEvent) {
+			event.update(ajaxUpdate);
+		}
+	}
 }

@@ -36,9 +36,11 @@ public class WicketApplication extends WebApplication
 	@Override
 	protected void init() {
 		super.init();
+
+		getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
+		getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
 		
-		//getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
-		//getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
+		mountBookmarkablePage("login", LoginPage.class);
 	}
 	
 	/**

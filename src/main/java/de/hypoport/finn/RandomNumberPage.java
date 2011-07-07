@@ -22,14 +22,11 @@ public class RandomNumberPage extends WebPage {
 		add(new Link("link") {
 			@Override
 			public void onClick() {
-//				info("onClick");
 				RandomNumberPage.this.visitChildren(new IVisitor<Component>() {
 					public Object component(Component component) {
 						if (component instanceof Label) {
-//							info("is Label");
 							Object data = component.getDefaultModelObject();
 							if (data instanceof Integer) {
-//								info("model is Integer");
 								int val = (Integer)data;
 								if ((val % 3) == 0) {
 									component.setVisible(!component.isVisible());
