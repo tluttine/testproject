@@ -2,21 +2,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Benutzerverwalung</title>
 </head>
 <body>
 		<wicket:panel>
-				<div wicket:id="panelFeedbackPanelId"</div>
+				<div wicket:id="userViewFeedbackpanel"</div>
 				<form wicket:id="formPanelId">
+				      <div>
 						<div>
-								<label wicket:id=""/>
-								<input type="text" wicket:id=""/>
-								<label wicket:id=""/>
-								<input type="text" wicket:id=""/>
+								<label wicket:id="userViewLabelFirstname"/>
+								<input type="text" wicket:id="userViewTextfieldFirstname"/>
+								<label wicket:id="userViewLabelLastname"/>
+								<input type="text" wicket:id="userViewTextfieldLastname"/>
 						</div>
 						<div>
-								<select wicket:id="firstnameLabel"/>
-								
+								<select wicket:id="userViewUserlist"/>								
+						</div>
+						</div>
+						<div>
+						<input wicket:id="userViewSaveButton" type="submit"  name="submit" value="Speichern"/>
+						<input wicket:id="userViewCreateButton" type="button"  name="submit" value="Neu"/>
+						<input wicket:id="userViewEditButton" type="button"  name="submit" value="Bearbeiten"/>
+						<input wicket:id="userViewRemoveButton" type="button"  name="submit" value="Löschen"/>
 						</div>
 				</form>
 		</wicket:panel>
