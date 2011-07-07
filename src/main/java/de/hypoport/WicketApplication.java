@@ -38,6 +38,8 @@ public class WicketApplication extends WebApplication
 		
 		getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
 		getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
+		
+		mountBookmarkablePage("login", LoginPage.class);
 	}
 	
 	/**
