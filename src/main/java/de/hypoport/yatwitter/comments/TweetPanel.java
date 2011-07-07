@@ -48,7 +48,17 @@ public class TweetPanel extends Panel {
 				tweet.addLike(loggedUser);
 				counter.setObject(tweet.getLikes());
 				target.addComponent(labelLikeCounter);
+				
+				
 			}
+			
+			@Override
+			protected void onBeforeRender() {
+				super.onBeforeRender();
+				setRenderBodyOnly(null == TwitterSession.get().getLoggedUsername());
+			}
+			
+		
 			
 		});
 		
