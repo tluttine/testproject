@@ -21,8 +21,7 @@ public class TweetContainer {
 	
 	public static List<Tweet> getTweets(int max) {
 		int ende = tweets.size();
-		int start = ende-max;
-		if (start<0) start=0;
+		int start = Math.max(0, ende - max);
 		List<Tweet> subList = tweets.subList(start, ende);
 		Collections.reverse(subList);
 		return Collections.unmodifiableList(subList);
@@ -55,7 +54,6 @@ public class TweetContainer {
 		public void setDate(Date date) {
 			this.date = date;
 		}
-		
 		
 	}
 }
