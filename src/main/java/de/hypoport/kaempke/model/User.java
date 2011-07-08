@@ -3,8 +3,8 @@ package de.hypoport.kaempke.model;
 import java.io.Serializable;
 
 public final class User implements Serializable{
-	private String firstname;
-	private String lastname;
+	private final String firstname;
+	private final String lastname;
 	
 	
 	public User(String firstname, String lastname) {
@@ -12,25 +12,16 @@ public final class User implements Serializable{
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
-	
-	
-	public User() {
-		super();
-	}
 
 
 	public String getFirstname() {
 		return firstname;
 	}
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+	
 	public String getLastname() {
 		return lastname;
 	}
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

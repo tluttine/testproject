@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -46,10 +47,10 @@ public class UserView extends Panel implements UserPresenter.Display {
 	public UserView(String id) {
 		super(id);
 		this.presenter = new UserPresenter(this);
-		initiaslize();
+		initializeComponents();
 	}
 
-	private void initiaslize() {
+	private void initializeComponents() {
 
 		feedbackPanel = new FeedbackPanel("userViewFeedbackPanel");
 		feedbackPanel.setOutputMarkupId(true);
@@ -74,6 +75,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.removeAction();
+				
 			}
 		};
 
@@ -81,6 +83,8 @@ public class UserView extends Panel implements UserPresenter.Display {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.createNewUserAction();
+				target.addComponent(feedbackPanel);
+				target.addComponent(form);
 			}
 		};
 
@@ -90,6 +94,16 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.userList = new ListChoice<String>("userViewUserlist", new PropertyModel<String>(this, "selectedUser"), new ArrayList<String>());
 		this.userList.setMaxRows(5);
 		userList.setOutputMarkupId(true);
+		
+		userList.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            protected void onUpdate(AjaxRequestTarget target) {
+                
+                presenter.setSelectedUserAction(userList.getChoices().indexOf(selectedUser));
+                target.addComponent(form);
+            }
+        });
+
+		
 		this.labelFirstname = new Label("userViewLabelFirstname", "Vorname");
 		this.labelLastname = new Label("userViewLabelLastname", "Nachname");
 		this.form = new Form<User>("formPanelId", formModel);
@@ -153,8 +167,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 	}
 
 	public void clearForm() {
-		this.form.getModelObject().setFirstname("");
-		this.form.getModelObject().setLastname("");
+		this.form.setModelObject(new User("", ""));		
 	}
 
 	public void clearSelection() {
@@ -162,8 +175,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 	}
 
 	public void setSelectedUser(User user) {
-		// TODO Auto-generated method stub
-
+		formModel.setObject(new User(user.getFirstname(),user.getLastname()));
 	}
 
 }

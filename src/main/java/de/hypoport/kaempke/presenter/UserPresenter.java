@@ -73,6 +73,10 @@ public final class UserPresenter implements Serializable {
 		
 		if ( !users.contains(selectedUser)) {
 			users.add(selectedUser);
+		} else  {
+			users.remove(selectedUser);
+			selectedUser = new User(firstname, lastname);
+			users.add(selectedUser);
 		}
 
 		
@@ -108,12 +112,12 @@ public final class UserPresenter implements Serializable {
 		final String firstname = display.getFirstname();
 		final String lastname = display.getLastname();
 
-		if (firstname.isEmpty()) {
+		if (null == firstname || firstname.isEmpty()) {
 			display.setWarningMessage("Du hast vergessen den Vornamen einzugeben.");
 			return false;
 		}
 
-		if (lastname.isEmpty()) {
+		if (null == lastname || lastname.isEmpty()) {
 			display.setWarningMessage("Du hast vergessen den Nachnamen einzugeben.");
 			return false;
 		}

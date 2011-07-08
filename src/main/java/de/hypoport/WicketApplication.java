@@ -6,6 +6,7 @@ import org.apache.wicket.Session;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
+import de.hypoport.kaempke.MyHomePage;
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.LoginPage;
 import de.hypoport.yatwitter.login.sessions.TwitterAuth;
