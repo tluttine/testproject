@@ -8,10 +8,6 @@ import de.hypoport.kaempke.model.User;
 
 public final class UserPresenter implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final UserPresenter.Display display;
 	private User selectedUser;
 	private final List<User> users = new ArrayList<User>();
@@ -29,8 +25,6 @@ public final class UserPresenter implements Serializable {
 		String getFirstname();
 
 		String getLastname();
-
-		void setErrorMessage(String error);
 
 		void setWarningMessage(String warning);
 
@@ -69,21 +63,21 @@ public final class UserPresenter implements Serializable {
 
 		if (null == selectedUser) {
 			selectedUser = new User(firstname, lastname);
-		} 
-		
-		if ( !users.contains(selectedUser)) {
+		}
+
+		if (!users.contains(selectedUser)) {
 			users.add(selectedUser);
-		} else  {
+		} else {
 			users.remove(selectedUser);
 			selectedUser = new User(firstname, lastname);
 			users.add(selectedUser);
 		}
 
-		
 		display.setUsers(users);
 		final int selectedUserIndex = users.indexOf(selectedUser);
-		display.setSelectedIndex(selectedUserIndex);
+		display.setSelectedIndex(selectedUserIndex);		
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
+		
 	}
 
 	public void createNewUserAction() {
@@ -105,6 +99,7 @@ public final class UserPresenter implements Serializable {
 		display.clearSelection();
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich entfernt.");
 		selectedUser = null;
+		display.setUsers(users);
 	}
 
 	private boolean displayHasValidForm() {

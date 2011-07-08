@@ -42,7 +42,7 @@ public class WicketApplication extends WebApplication
 	@Override
 	public Class<? extends WebPage> getHomePage()
 	{
-		return TwitterCommentPage.class;
+		return MyHomePage.class;
 	}
 
 	@Override

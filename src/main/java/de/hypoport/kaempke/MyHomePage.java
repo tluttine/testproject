@@ -1,8 +1,12 @@
 package de.hypoport.kaempke;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.ResourceReference;
+import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.WebPage;
 
+import de.hypoport.HomePage;
 import de.hypoport.kaempke.view.UserView;
 
 public class MyHomePage extends WebPage {
@@ -16,5 +20,11 @@ public class MyHomePage extends WebPage {
 	 */
 	public MyHomePage(final PageParameters parameters) {
 		add(new UserView("userView"));
+		
+		ResourceReference cssRef = new ResourceReference(MyHomePage.class, "view/resources/css/kaempke.css");
+		ResourceReference jsRef = new ResourceReference(MyHomePage.class, "view/resources/js/kaempke.css");
+        add(CSSPackageResource.getHeaderContribution(cssRef));
+        add(JavascriptPackageResource.getHeaderContribution(jsRef));
+
 	}
 }
