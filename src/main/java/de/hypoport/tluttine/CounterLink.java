@@ -4,12 +4,13 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 public class CounterLink extends AjaxFallbackLink<Integer> {
 	protected final Label label;
 	protected final IModel<Integer> inc;
 
-	CounterLink(String id, IModel<Integer> model, Label label,
+	public CounterLink(String id, IModel<Integer> model, Label label,
 			IModel<Integer> inc) {
 		super(id, model);
 		this.label = label;
@@ -21,7 +22,11 @@ public class CounterLink extends AjaxFallbackLink<Integer> {
 		if (target!=null) {
 			target.addComponent(label);
 		}
-		setModelObject(inc.getObject()+getModelObject());
+
+		int result = inc.getObject()+getModelObject();
+		if (result > 0) {		
+			setModelObject(result);
+		}
 	}
 
 }
