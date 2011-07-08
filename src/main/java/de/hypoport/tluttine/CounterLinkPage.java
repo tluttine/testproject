@@ -11,15 +11,13 @@ public class CounterLinkPage extends WebPage {
 
 		// Links
 		Model<Integer> counter = Model.of(0);
-		Model<Integer> inc1 = Model.of(1);
-		Model<Integer> inc2 = Model.of(2);
-
 		Label label = new Label("counter",counter);
 		label.setOutputMarkupId(true);
 		add(label);
 		
-		add(new CounterLinkPanel("link1", counter,inc1,label));
-		add(new CounterLinkPanel("link2", counter,inc2,label));
+		add(new CounterLink("link1", counter, label, Model.of(1)));
+		add(new CounterLink("link2", counter, label, Model.of(2)));
+		add(new DiceLink("link3", counter, label, Model.of(3)));
 
 	}
 
