@@ -1,0 +1,46 @@
+body {
+
+}
+
+h1 {
+	background-color: #c0c0b0;
+	margin: 0px;
+	padding: 0px;
+}
+
+#editUser {
+	background-color: #d0d0c0;
+	margin: 0px;
+	padding: 20px;
+}
+
+#allUsers {
+	background-color: fuchsia;
+}
+
+.feedbackPanel {
+	margin:0px;
+	padding:10px;
+	border: 1px black solid;
+	 
+}
+
+.feedbackPanel  li{
+	list-style: none;
+	 
+}
+
+.infoFeedback span{
+	background: url(view/info.png) no-repeat center left; 	
+	padding-left:30px;
+	list-style: none;
+    color: #ccc;
+}
+
+
+.warningFeedback span {
+	background: url(view/warning.png) no-repeat center left; 	
+	padding-left:30px;
+	list-style: none;
+	color: #ff0000;
+}

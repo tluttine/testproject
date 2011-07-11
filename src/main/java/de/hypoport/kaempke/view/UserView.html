@@ -6,27 +6,29 @@
 </head>
 <body>
 
-		<wicket:panel>
-				<div wicket:id="userViewFeedbackPanel"/>
-				<form wicket:id="formPanelId">
-				      <div>
-						<div>
-								<label wicket:id="userViewLabelFirstname"/>
-								<input type="text" wicket:id="firstname"/>
-								<label wicket:id="userViewLabelLastname"/>
-								<input type="text" wicket:id="lastname"/>
-						</div>
-						<div>
-								<select wicket:id="userViewUserlist"/>								
-						</div>
-						</div>
-						<div>
-						<input wicket:id="userViewSaveButton" type="submit"  name="submit" value="Speichern"/>
-						<input wicket:id="userViewCreateButton" type="button"  name="submit" value="Neu"/>
-						<input wicket:id="userViewEditButton" type="button"  name="submit" value="Bearbeiten"/>
-						<input wicket:id="userViewRemoveButton" type="button"  name="submit" value="Löschen"/>
-						</div>
-				</form>
-		</wicket:panel>
+	<wicket:panel>
+		<div wicket:id="userViewFeedbackPanel" >
+			<div id="test"></div>
+		</div>
+		<form wicket:id="formPanelId">
+			<div>
+				<div>
+					<label wicket:id="userViewLabelFirstname" /> <input type="text"
+						wicket:id="firstname" /> <label wicket:id="userViewLabelLastname" />
+					<input type="text" wicket:id="lastname" />
+				</div>
+				<div>
+					<select wicket:id="userViewUserlist" />
+				</div>
+			</div>
+			<div>
+				<input wicket:id="userViewSaveButton" type="submit" name="submit"
+					value="Speichern" /> <input wicket:id="userViewCreateButton"
+					type="button" name="submit" value="Neu" /> <input
+					wicket:id="userViewRemoveButton" type="button" name="submit"
+					value="Löschen" />
+			</div>
+		</form>
+	</wicket:panel>
 </body>
 </html>

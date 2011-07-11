@@ -8,10 +8,6 @@ import de.hypoport.kaempke.model.User;
 
 public final class UserPresenter implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final UserPresenter.Display display;
 	private User selectedUser;
 	private final List<User> users = new ArrayList<User>();
@@ -29,8 +25,6 @@ public final class UserPresenter implements Serializable {
 		String getFirstname();
 
 		String getLastname();
-
-		void setErrorMessage(String error);
 
 		void setWarningMessage(String warning);
 
@@ -71,11 +65,19 @@ public final class UserPresenter implements Serializable {
 			selectedUser = new User(firstname, lastname);
 		}
 
-		users.add(selectedUser);
+		if (!users.contains(selectedUser)) {
+			users.add(selectedUser);
+		} else {
+			users.remove(selectedUser);
+			selectedUser = new User(firstname, lastname);
+			users.add(selectedUser);
+		}
+
 		display.setUsers(users);
 		final int selectedUserIndex = users.indexOf(selectedUser);
-		display.setSelectedIndex(selectedUserIndex);
-		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich erstellt.");
+		display.setSelectedIndex(selectedUserIndex);		
+		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
+		
 	}
 
 	public void createNewUserAction() {
@@ -97,25 +99,7 @@ public final class UserPresenter implements Serializable {
 		display.clearSelection();
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich entfernt.");
 		selectedUser = null;
-	}
-
-	public void editAction() {
-		if (null == selectedUser) {
-			display.setWarningMessage("Es wurde kein Benutzer zum bearbeiten ausgewählt.");
-			return;
-		}
-
-		if (!displayHasValidForm()) {
-			return;
-		}
-
-		final String firstname = display.getFirstname();
-		final String lastname = display.getLastname();
-
-		selectedUser.setFirstname(firstname);
-		selectedUser.setLastname(lastname);
-
-		display.setInfoMessage("Der Benutzer wurde erfolgreich bearbeitet.");
+		display.setUsers(users);
 	}
 
 	private boolean displayHasValidForm() {
@@ -123,12 +107,12 @@ public final class UserPresenter implements Serializable {
 		final String firstname = display.getFirstname();
 		final String lastname = display.getLastname();
 
-		if (firstname.isEmpty()) {
+		if (null == firstname || firstname.isEmpty()) {
 			display.setWarningMessage("Du hast vergessen den Vornamen einzugeben.");
 			return false;
 		}
 
-		if (lastname.isEmpty()) {
+		if (null == lastname || lastname.isEmpty()) {
 			display.setWarningMessage("Du hast vergessen den Nachnamen einzugeben.");
 			return false;
 		}
