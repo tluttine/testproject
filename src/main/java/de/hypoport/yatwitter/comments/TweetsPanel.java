@@ -25,7 +25,7 @@ public class TweetsPanel extends Panel implements IEventListener {
 		super(id);
 		
 		ajaxUpdate = new WebMarkupContainer("ajaxUpdate");
-		ajaxUpdate.setOutputMarkupId(true);
+		ajaxUpdate.setOutputMarkupId(true);	
 		
 		ajaxUpdate.add(new ListView<Tweet>("tweets",model) {
 			@Override
