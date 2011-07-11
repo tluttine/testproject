@@ -17,6 +17,7 @@ public class TwitterAuthListener implements IUnauthorizedComponentInstantiationL
 		this.signInPageClass = signInPageClass;
 	}
 	
+	@Override
 	public void onUnauthorizedInstantiation(Component component) {
 		if (component instanceof Page)
 		{

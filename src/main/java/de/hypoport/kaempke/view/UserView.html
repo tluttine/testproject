@@ -7,28 +7,55 @@
 <body>
 
 	<wicket:panel>
-		<div wicket:id="userViewFeedbackPanel" >
-			<div id="test"></div>
+		<div id="userForm">
+			<div wicket:id="userViewFeedbackPanel"></div>
+
+			<form wicket:id="formPanelId">
+				<div id="user">
+					<div id="editUser">
+						<table>
+							<tr>
+								<td><label wicket:id="userViewLabelFirstname" />
+								</td>
+								<td><input type="text" wicket:id="firstname" />
+								</td>
+							</tr>
+							<tr>
+								<td><label wicket:id="userViewLabelLastname" />
+								</td>
+								<td><input type="text" wicket:id="lastname" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td style="text-align: right"><input
+									wicket:id="userViewSaveButton" type="submit" name="submit"
+									value="Speichern" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="allUsers">
+						<select wicket:id="userViewUserlist" />
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div id="userNav">
+					<table style="width: 100%">
+						<tr>
+							<td style="text-align: left"><input
+								wicket:id="userViewRemoveButton" type="button" name="submit"
+								value="Ausgewählten Benutzer entfernen" />
+							</td>
+							<td style="text-align: right"><input
+								wicket:id="userViewCreateButton" type="button" name="submit"
+								value="Neuen Benutzer erstellen" />
+							</td>
+						</tr>
+					</table>
+				</div>
+
+			</form>
 		</div>
-		<form wicket:id="formPanelId">
-			<div>
-				<div>
-					<label wicket:id="userViewLabelFirstname" /> <input type="text"
-						wicket:id="firstname" /> <label wicket:id="userViewLabelLastname" />
-					<input type="text" wicket:id="lastname" />
-				</div>
-				<div>
-					<select wicket:id="userViewUserlist" />
-				</div>
-			</div>
-			<div>
-				<input wicket:id="userViewSaveButton" type="submit" name="submit"
-					value="Speichern" /> <input wicket:id="userViewCreateButton"
-					type="button" name="submit" value="Neu" /> <input
-					wicket:id="userViewRemoveButton" type="button" name="submit"
-					value="Löschen" />
-			</div>
-		</form>
 	</wicket:panel>
 </body>
 </html>

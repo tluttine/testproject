@@ -25,20 +25,20 @@ public class TwitterCommentPage extends AbstractBasePage implements IEventListen
 	private Label dateLabel;
 
 	public TwitterCommentPage() {
-		
+
 		setTitle("Eigene Tweets");
 		setHeadline("Was machst Du?");
-		
+
 		add(new NewTweetPanel("newtweets"));
 		add(new TweetsPanel("tweets", (IModel<? extends List<? extends Tweet>>) new TweetsModel()));
-		
-		IModel<Date> dateModel=new LoadableDetachableModel<Date>() {
+
+		IModel<Date> dateModel = new LoadableDetachableModel<Date>() {
 			@Override
 			protected Date load() {
 				return new Date();
 			}
 		};
-		dateLabel = new Label("datum",dateModel) {
+		dateLabel = new Label("datum", dateModel) {
 			@Override
 			public IConverter getConverter(Class<?> type) {
 				return new DateConverter() {
@@ -50,16 +50,17 @@ public class TwitterCommentPage extends AbstractBasePage implements IEventListen
 			}
 		};
 		dateLabel.setOutputMarkupId(true);
-		
+
 		dateLabel.add(new AjaxSelfUpdatingTimerBehavior(Duration.seconds(5)));
 		add(dateLabel);
 
 	}
-	
+
+	@Override
 	public void notify(AbstractEvent event) {
 		if (event instanceof NewTweetEvent) {
 			event.update(dateLabel);
 		}
-		
+
 	}
 }
