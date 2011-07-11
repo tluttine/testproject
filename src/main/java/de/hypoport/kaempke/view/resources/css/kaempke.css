@@ -8,21 +8,56 @@ h1 {
 	padding: 0px;
 }
 
+#userForm{
+		border: 1px solid black;
+		margin-top:10px;
+		padding:10px;
+		
+}
+
 #editUser {
-	background-color: #d0d0c0;
-	margin: 0px;
-	padding: 20px;
+	height: 150px;
+	width:400px;
+	border: 1px solid black;
+	float:left;
+	padding:10px;
 }
 
 #allUsers {
-	background-color: fuchsia;
+	height: 150px;
+	width:200px;
+	border: 1px solid black;
+	float:left;
+	margin-left:10px;
+	padding:10px;
+	margin-bottom:10px;
+}
+
+#allUsers select {
+	width:100%;
+	height:100%;
+}
+
+#clear {
+	clear:both;
+	
+}
+
+#userNav {
+	
+    clear:both;
+    padding:20px;
+    border: 1px solid black;
+    width:611px;
+    text-align:right;
 }
 
 .feedbackPanel {
 	margin:0px;
 	padding:10px;
 	border: 1px black solid;
-	 
+	 margin-bottom:10px;
+	 width:631px;
 }
 
 .feedbackPanel  li{
@@ -31,7 +66,7 @@ h1 {
 }
 
 .infoFeedback span{
-	background: url(view/info.png) no-repeat center left; 	
+	background: url(../image/info.png) no-repeat center left; 	
 	padding-left:30px;
 	list-style: none;
     color: #ccc;
@@ -39,7 +74,7 @@ h1 {
 
 
 .warningFeedback span {
-	background: url(view/warning.png) no-repeat center left; 	
+	background: url(../image/warning.png) no-repeat center left; 	
 	padding-left:30px;
 	list-style: none;
 	color: #ff0000;
