@@ -17,6 +17,7 @@ public class AbstractEvent {
 	
 	public void fire() {
 		source.getPage().visitChildren(IEventListener.class, new Component.IVisitor<Component>() {
+			@Override
 			public Object component(Component component) {
 				IEventListener eventCom=(IEventListener) component;
 				eventCom.notify(AbstractEvent.this);

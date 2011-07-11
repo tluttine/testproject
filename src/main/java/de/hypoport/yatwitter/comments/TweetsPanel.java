@@ -35,6 +35,7 @@ public class TweetsPanel extends Panel implements IEventListener {
 
 	}
 
+	@Override
 	public void notify(AbstractEvent event) {
 		if (event instanceof NewTweetEvent) {
 			event.update(ajaxUpdate);

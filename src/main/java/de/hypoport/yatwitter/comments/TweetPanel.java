@@ -27,7 +27,7 @@ public class TweetPanel extends Panel {
 		add(new Label("message",tweet.getMessage()));
 		add(new Label("date",Model.of(tweet.getDate())));
 		
-		counter = Model.of(new Integer(tweet.getLikes()));
+		counter = Model.of(new Integer(tweet.getLikesCount()));
 		labelLikeCounter = new Label("counter",counter);
 		labelLikeCounter.setOutputMarkupId(true);
 		add(labelLikeCounter);
@@ -42,7 +42,7 @@ public class TweetPanel extends Panel {
 				}
 				
 				tweet.addLike(loggedUser);
-				counter.setObject(tweet.getLikes());
+				counter.setObject(tweet.getLikesCount());
 				target.addComponent(labelLikeCounter);
 				
 				

@@ -2,8 +2,14 @@ package de.hypoport.yatwitter.login;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-public class LoginData implements Serializable {
+import de.hypoport.yatwitter.persistence.DoInterface;
+
+@Entity
+@Table(name="loginData")
+public class LoginData implements Serializable, DoInterface<String> {
 	String name;
 	String password;
 	
@@ -21,6 +27,11 @@ public class LoginData implements Serializable {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Override
+	public String getId() {
+		return this.name;
 	}
 	
 }

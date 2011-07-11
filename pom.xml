@@ -5,13 +5,11 @@
 	<artifactId>testproject</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<!-- TODO project name  -->
+	<!-- TODO project name -->
 	<name>quickstart</name>
 	<description></description>
-	<!--
-		TODO <organization> <name>company name</name> <url>company url</url>
-		</organization>
-	-->
+	<!-- TODO <organization> <name>company name</name> <url>company url</url> 
+		</organization> -->
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -26,17 +24,14 @@
 		<log4j.version>1.2.14</log4j.version>
 	</properties>
 	<dependencies>
-		<!--  WICKET DEPENDENCIES -->
+		<!-- WICKET DEPENDENCIES -->
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
 			<artifactId>wicket</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
-		<!--
-			OPTIONAL <dependency> <groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version> </dependency>
-		-->
+		<!-- OPTIONAL <dependency> <groupId>org.apache.wicket</groupId> <artifactId>wicket-extensions</artifactId> 
+			<version>${wicket.version}</version> </dependency> -->
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
 		<dependency>
@@ -50,7 +45,7 @@
 			<version>1.2.14</version>
 		</dependency>
 
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
+		<!-- JUNIT DEPENDENCY FOR TESTING -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -58,7 +53,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
+		<!-- JETTY DEPENDENCIES FOR TESTING -->
 		<dependency>
 			<groupId>org.mortbay.jetty</groupId>
 			<artifactId>jetty</artifactId>
@@ -77,6 +72,32 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- BEGIN Hibernate, Spring configuration -->
+
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring</artifactId>
+			<version>2.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.7.ga</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.3.1.GA</version>
+		</dependency>
+		<!-- END Hibernate, Spring configuration -->
 	</dependencies>
 	<build>
 		<resources>
@@ -108,15 +129,24 @@
 			</testResource>
 		</testResources>
 		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<optimize>true</optimize>
 					<debug>true</debug>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -133,5 +163,5 @@
 			</plugin>
 		</plugins>
 	</build>
-	</project>
+</project>
 

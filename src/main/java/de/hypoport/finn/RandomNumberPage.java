@@ -23,6 +23,7 @@ public class RandomNumberPage extends WebPage {
 			@Override
 			public void onClick() {
 				RandomNumberPage.this.visitChildren(new IVisitor<Component>() {
+					@Override
 					public Object component(Component component) {
 						if (component instanceof Label) {
 							Object data = component.getDefaultModelObject();
