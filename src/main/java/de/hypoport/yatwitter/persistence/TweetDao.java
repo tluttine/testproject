@@ -9,4 +9,7 @@ public class TweetDao extends AbstractDao<Integer, Tweet> {
 		
 	}
 
+	public TweetDao() {
+	}
+
 }

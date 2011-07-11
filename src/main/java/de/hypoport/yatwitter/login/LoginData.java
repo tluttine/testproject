@@ -2,7 +2,9 @@ package de.hypoport.yatwitter.login;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.hypoport.yatwitter.persistence.DoInterface;
@@ -10,6 +12,7 @@ import de.hypoport.yatwitter.persistence.DoInterface;
 @Entity
 @Table(name="loginData")
 public final class LoginData implements Serializable, DoInterface<String> {
+	@Id
 	String name;
 	String password;
 	
@@ -30,7 +33,7 @@ public final class LoginData implements Serializable, DoInterface<String> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	@Column(nullable=false,name="password")
 	public String getPassword() {
 		return password;
 	}
@@ -43,5 +46,4 @@ public final class LoginData implements Serializable, DoInterface<String> {
 	public String getId() {
 		return this.name;
 	}
-	
 }

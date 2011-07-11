@@ -8,7 +8,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
 import de.hypoport.yatwitter.login.LoginData;
 import de.hypoport.yatwitter.login.LoginPage;
 import de.hypoport.yatwitter.pages.AbstractBasePage;
@@ -33,24 +32,24 @@ public final class RegisterPage extends AbstractBasePage{
 
 			@Override
 			protected void onSubmit() {
-				String user = registerFormModel.getObject().getUsername();
-				if (null != loginDataDao.get(user)) {
-					warn("user exists " + user);
+				String username = registerFormModel.getObject().getUsername();
+				if (null != loginDataDao.get(username)) {
+					warn("user exists " + username);
 					return;
 				}
 				String password = registerFormModel.getObject().getPassword();
-				loginDataDao.save(new LoginData(user, password));
+				loginDataDao.save(new LoginData(username, password));
 			}
 		
 		};
 		
-		final TextField<String> textFieldUserName = new TextField<String>("textFieldUserName");
+		final TextField<String> textFieldUserName = new TextField<String>("username");
 		textFieldUserName.setRequired(true);
 		
-		final TextField<String> textFieldPassword = new TextField<String>("textFieldPassword");
+		final TextField<String> textFieldPassword = new TextField<String>("password");
 		textFieldPassword.setRequired(true);
 		
-		final TextField<String> textFieldPasswordRepeat = new TextField<String>("textFieldPasswordRepeat");
+		final TextField<String> textFieldPasswordRepeat = new TextField<String>("passwordRepeat");
 		textFieldPasswordRepeat.setRequired(true);
 		
 		registerDataForm.add(new Label("labelUsername",Model.of("Benutzername")));
@@ -60,6 +59,7 @@ public final class RegisterPage extends AbstractBasePage{
 		registerDataForm.add(textFieldUserName);
 		registerDataForm.add(textFieldPassword);
 		registerDataForm.add(textFieldPasswordRepeat);
+		
 		
 		add(registerDataForm);
 		add(new Link<String>("linkToLogin",Model.of("zurück zur Anmeldung")) {

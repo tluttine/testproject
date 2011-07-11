@@ -8,4 +8,9 @@ public class LoginDataDao extends AbstractDao<String, LoginData> {
 	protected LoginDataDao(Class<LoginData> domainClass) {
 		super(domainClass);
 	}
+	public LoginDataDao() {
+
+	}
+	
+	
 }

@@ -21,6 +21,14 @@ public abstract class AbstractDao<K extends Serializable, T extends DoInterface<
 	protected AbstractDao(Class<T> domainClass) {
 		_domainClass = domainClass;
 	}
+	
+	
+
+	public AbstractDao() {
+		
+	}
+
+
 
 	public SessionFactory getSessionFactory() {
 		return _sessionFactory;
@@ -61,6 +69,7 @@ public abstract class AbstractDao<K extends Serializable, T extends DoInterface<
 	}
 
 	@Override
+	@Transactional
 	public T get(K id) {
 		return (T) getSession().get(_domainClass, id);
 	}

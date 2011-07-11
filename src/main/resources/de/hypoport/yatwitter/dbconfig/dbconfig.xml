@@ -32,7 +32,7 @@ Changed by Tuomas, Finn & Steffen
 		<entry key="hibernate.connection.pool_size" value="10"></entry>			
 		<entry key="hibernate.statement_cache.size"  value="10"></entry>
 
-		<entry key="hibernate.hbm2ddl.auto" value="update"></entry>
+		<entry key="hibernate.hbm2ddl.auto" value="create-drop"></entry>
 
 		<entry key="hibernate.bytecode.use_reflection_optimizer" value="false"></entry>
 
