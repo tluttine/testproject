@@ -3,12 +3,15 @@ package de.hypoport.yatwitter.login;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
+import de.hypoport.yatwitter.register.RegisterPage;
 
 public final class LoginPanel extends Panel{
 
@@ -38,6 +41,16 @@ public final class LoginPanel extends Panel{
 		nameField.setRequired(true);
 		form.add(nameField);
 		form.add(new PasswordTextField("password"));
+		add(new Link<String>("linkRegister", Model.of("Registrieren")) {
+
+			@Override
+			public void onClick() {
+				setResponsePage(RegisterPage.class);
+				
+			}
+			
+		});
+		
 		add(form);
 
 	}

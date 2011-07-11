@@ -9,10 +9,20 @@ import de.hypoport.yatwitter.persistence.DoInterface;
 
 @Entity
 @Table(name="loginData")
-public class LoginData implements Serializable, DoInterface<String> {
+public final class LoginData implements Serializable, DoInterface<String> {
 	String name;
 	String password;
 	
+	public LoginData() {
+		super();
+	}
+
+	public LoginData(String name, String password) {
+		super();
+		this.name = name;
+		this.password = password;
+	}
+
 	public String getName() {
 		return name;
 	}

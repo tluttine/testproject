@@ -8,32 +8,35 @@
 
 	<wicket:panel>
 		<div id="userForm">
-			<div wicket:id="userViewFeedbackPanel">
-
-			</div>
+			<div wicket:id="userViewFeedbackPanel"></div>
 
 			<form wicket:id="formPanelId">
-				<div id="editUser">
-					<table>
-						<tr>
-							<td><label wicket:id="userViewLabelFirstname" /></td>
-							<td><input type="text" wicket:id="firstname" /></td>
-						</tr>
-						<tr>
-							<td><label wicket:id="userViewLabelLastname" /></td>
-							<td><input type="text" wicket:id="lastname" />
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td style="text-align: right"><input
-								wicket:id="userViewSaveButton" type="submit" name="submit"
-								value="Speichern" /></td>
-						</tr>
-					</table>
-				</div>
-				<div id="allUsers">
-					<select wicket:id="userViewUserlist" />
+				<div id="user">
+					<div id="editUser">
+						<table>
+							<tr>
+								<td><label wicket:id="userViewLabelFirstname" />
+								</td>
+								<td><input type="text" wicket:id="firstname" />
+								</td>
+							</tr>
+							<tr>
+								<td><label wicket:id="userViewLabelLastname" />
+								</td>
+								<td><input type="text" wicket:id="lastname" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td style="text-align: right"><input
+									wicket:id="userViewSaveButton" type="submit" name="submit"
+									value="Speichern" />
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="allUsers">
+						<select wicket:id="userViewUserlist" />
+					</div>
 				</div>
 				<div class="clear"></div>
 				<div id="userNav">
@@ -41,14 +44,14 @@
 						<tr>
 							<td style="text-align: left"><input
 								wicket:id="userViewRemoveButton" type="button" name="submit"
-								value="Ausgewählten Benutzer entfernen" /></td>
+								value="Ausgewählten Benutzer entfernen" />
+							</td>
 							<td style="text-align: right"><input
 								wicket:id="userViewCreateButton" type="button" name="submit"
-								value="Neuen Benutzer erstellen" /></td>
+								value="Neuen Benutzer erstellen" />
+							</td>
 						</tr>
-
 					</table>
-
 				</div>
 
 			</form>

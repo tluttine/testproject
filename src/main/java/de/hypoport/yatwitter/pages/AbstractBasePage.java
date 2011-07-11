@@ -5,8 +5,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
-import de.hypoport.yatwitter.login.LoginPage;
-import de.hypoport.yatwitter.login.LoginPanel;
 import de.hypoport.yatwitter.login.LogoutLink;
 
 

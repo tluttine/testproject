@@ -4,11 +4,15 @@ body {
 
 h1 {
 	background-color: #c0c0b0;
-	padding: 0px;
 }
 
 #userForm{
 		width:800px;
+		padding:10px;
+}
+
+#user {
+	
 }
 
 #editUser {
@@ -16,7 +20,7 @@ h1 {
 	min-width:40%;
 	border: 1px solid black;
 	float:left;
-	padding:10px;
+	margin-bottom:15px;
 }
 
 #allUsers {
@@ -24,7 +28,6 @@ h1 {
    min-width:30%;
 	border: 1px solid black;
 	float:left;
-	padding:10px;
 }
 
 #allUsers select {
@@ -37,13 +40,13 @@ h1 {
 }
 
 #userNav {
-    clear:both;
+    
     border: 1px solid black;
     text-align:right;
+    clear:both;
 }
 
 .feedbackPanel {
-	padding:10px;
 	border: 1px black solid;
 }
 
@@ -54,7 +57,6 @@ h1 {
 
 .infoFeedback span{
 	background: url(../image/info.png) no-repeat center left; 	
-	padding-left:30px;
 	list-style: none;
     color: #ccc;
 }
@@ -62,7 +64,6 @@ h1 {
 
 .warningFeedback span {
 	background: url(../image/warning.png) no-repeat center left; 	
-	padding-left:30px;
 	list-style: none;
 	color: #ff0000;
 }
