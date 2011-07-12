@@ -3,10 +3,11 @@
 	<title>Dice Thrower Page</title>
 </head>
 <body>
-	<h2>Number of Dices to throw: 
-	<a wicket:id="addLink">+</a>
-	<span wicket:id="diceCounter"></span>
-	<a wicket:id="decLink">-</a><br>
-	</h2>
+	<b>Number of Dices to throw:</b>
+	<form wicket:id="diceForm">
+    	<input wicket:id="dicePlus" type="submit" value="+"/>
+		<span wicket:id="diceCounter"></span>
+    	<input wicket:id="diceMinus" type="submit" value="-"/>
+    </form>	
 </body>
 </html>
