@@ -12,8 +12,9 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<value>de.hypoport.yatwitter.login.LoginData</value>
-				<value>de.hypoport.yatwitter.comments.Tweet</value>
+				<value>de.hypoport.yatwitter.dto.LoginData</value>
+				<value>de.hypoport.yatwitter.dto.Tweet</value>
+				<value>de.hypoport.yatwitter.dto.Like</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" ref="hibernateProperties"></property>
@@ -25,11 +26,14 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
-	<bean id="loginDataDao" class="de.hypoport.yatwitter.persistence.LoginDataDao">
+	<bean id="loginDataDao" class="de.hypoport.yatwitter.dao.LoginDataDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	
-	<bean id="tweetDao" class="de.hypoport.yatwitter.persistence.TweetDao">
+	<bean id="tweetDao" class="de.hypoport.yatwitter.dao.TweetDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-</beans>
+	
+	<bean id="likeDao" class="de.hypoport.yatwitter.dao.LikeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean></beans>

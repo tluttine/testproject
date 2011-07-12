@@ -6,8 +6,8 @@ import org.apache.wicket.markup.html.CSSPackageResource;
 import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.WebPage;
 
-import de.hypoport.HomePage;
 import de.hypoport.kaempke.view.UserView;
+import de.hypoport.yatwitter.page.HomePage;
 
 public class MyHomePage extends WebPage {
 	// TODO Add any page properties or variables here
