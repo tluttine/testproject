@@ -23,11 +23,12 @@ public class RandomNumberPage extends WebPage {
 			@Override
 			public void onClick() {
 				RandomNumberPage.this.visitChildren(new IVisitor<Component>() {
+					@Override
 					public Object component(Component component) {
 						if (component instanceof Label) {
 							Object data = component.getDefaultModelObject();
 							if (data instanceof Integer) {
-								int val = (Integer)data;
+								int val = (Integer) data;
 								if ((val % 3) == 0) {
 									component.setVisible(!component.isVisible());
 								}
@@ -40,9 +41,9 @@ public class RandomNumberPage extends WebPage {
 		});
 		add(new BookmarkablePageLink<RandomNumberPage>("reset", RandomNumberPage.class));
 	}
-	
-	private List<Integer> getNumbers(){
-		List<Integer> result = Arrays.asList(1,2,3,4,5,6,7,8,9);
+
+	private List<Integer> getNumbers() {
+		List<Integer> result = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
 		Collections.shuffle(result, new Random(System.currentTimeMillis()));
 		return result;
 	}

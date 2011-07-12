@@ -8,35 +8,48 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
+import de.hypoport.yatwitter.persistence.LoginDataDao;
 import de.hypoport.yatwitter.register.RegisterPage;
 
-public final class LoginPanel extends Panel{
+public final class LoginPanel extends Panel {
+
+	@SpringBean(name = LoginDataDao.BEAN_ID)
+	private LoginDataDao loginDataDao;
 
 	public LoginPanel(String id) {
 		super(id);
-		
-		IModel<LoginData> formModel = new CompoundPropertyModel<LoginData>(new LoginData());
-		Form<LoginData> form = new Form<LoginData>("form",formModel)
-		{
+
+		final IModel<LoginData> formModel = new CompoundPropertyModel<LoginData>(new LoginData());
+		final Form<LoginData> form = new Form<LoginData>("form", formModel) {
 			@Override
 			protected void onSubmit() {
 				// login prüfen
-				LoginData loginData = getModelObject();
-				if (Logins.isValid(loginData.getName(), loginData.getPassword())) {
-					info("Nutzer kenn ich");
-					TwitterSession.get().setUser(loginData);
-					
-					if (!continueToOriginalDestination()) {
-						setResponsePage(TwitterCommentPage.class);
-					}
+				final LoginData loginData = getModelObject();
+				LoginData loginDataDb = loginDataDao.get(loginData.getName());
+				if (null == loginDataDb) {
+					warn("Der Benutzer existiert noch nicht in der Datenbank.");
+					return;
 				}
-				else error("Login oder Passwort falsch");
-				
+
+				final String password = loginDataDb.getPassword();
+
+				if (!password.equals(loginData.getPassword())) {
+					error("Passwort falsch");
+					return;
+				}
+
+				TwitterSession.get().setUser(loginDataDb);
+
+				if (!continueToOriginalDestination()) {
+					setResponsePage(TwitterCommentPage.class);
+				}
 			}
 		};
+
 		TextField<String> nameField = new TextField<String>("name");
 		nameField.setRequired(true);
 		form.add(nameField);
@@ -46,24 +59,24 @@ public final class LoginPanel extends Panel{
 			@Override
 			public void onClick() {
 				setResponsePage(RegisterPage.class);
-				
+
 			}
-			
+
 		});
-		
+
 		add(form);
 
 	}
 
 	@Override
-	protected void onBeforeRender() {
-		super.onBeforeRender();
-		
-		setVisible(!TwitterSession.get().hasValidLogin());
-	}
-	
-	@Override
 	protected boolean callOnBeforeRenderIfNotVisible() {
 		return true;
+	}
+
+	@Override
+	protected void onBeforeRender() {
+		super.onBeforeRender();
+
+		setVisible(!TwitterSession.get().hasValidLogin());
 	}
 }
