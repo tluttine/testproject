@@ -50,7 +50,6 @@ public abstract class AbstractDao<K extends Serializable, T extends DoInterface<
 	}
 
 	@Override
-	@Transactional
 	public T get(K id) {
 		return (T) getSession().get(_domainClass, id);
 	}
