@@ -7,7 +7,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import de.hypoport.kaempke.MyHomePage;
+import de.hypoport.yatwitter.comments.TwitterCommentPage;
 import de.hypoport.yatwitter.login.LoginPage;
 import de.hypoport.yatwitter.login.sessions.TwitterAuth;
 import de.hypoport.yatwitter.login.sessions.TwitterAuthListener;
@@ -31,7 +31,7 @@ public class WicketApplication extends WebApplication {
 	 */
 	@Override
 	public Class<? extends WebPage> getHomePage() {
-		return MyHomePage.class;
+		return TwitterCommentPage.class;
 	}
 
 	@Override
