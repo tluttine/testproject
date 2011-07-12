@@ -1,13 +1,9 @@
 package de.hypoport.kaempke.view;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -18,7 +14,6 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import de.hypoport.kaempke.model.User;
@@ -26,13 +21,8 @@ import de.hypoport.kaempke.presenter.UserPresenter;
 
 public class UserView extends Panel implements UserPresenter.Display {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
 	private final UserPresenter presenter;
-
 	private FeedbackPanel feedbackPanel;
 	private Form<User> form;
 	private ListChoice<String> userList;
@@ -41,8 +31,8 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private AjaxButton saveUserButton;
 	private Label labelFirstname;
 	private Label labelLastname;
-	private User user = new User("", "");
-	private IModel<User> formModel = new CompoundPropertyModel<User>(this.user);
+	private final User user = new User("", "");
+	private final IModel<User> formModel = new CompoundPropertyModel<User>(this.user);
 	private TextField<String> textFieldFirstname;
 	private TextField<String> textFieldLastname;
 
@@ -50,8 +40,82 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	public UserView(String id) {
 		super(id);
-		this.presenter = new UserPresenter(this);
+
 		initializeComponents();
+		this.presenter = new UserPresenter(this);
+	}
+
+	@Override
+	public void clearForm() {
+		this.form.setModelObject(new User("", ""));
+	}
+
+	@Override
+	public void clearSelection() {
+		this.selectedUser = null;
+	}
+
+	@Override
+	public String getFirstname() {
+		return this.form.getModelObject().getFirstname();
+	}
+
+	@Override
+	public TextField<String> getFirstnameTextfield() {
+		return textFieldFirstname;
+	}
+
+	@Override
+	public String getLastname() {
+		return this.form.getModelObject().getLastname();
+	}
+
+	@Override
+	public TextField<String> getLastnameTextField() {
+		return textFieldLastname;
+	}
+
+	@Override
+	public int getSelectedIndex() {
+		return this.userList.getChoices().indexOf(selectedUser);
+	}
+
+	@Override
+	public ListChoice<String> getuserListChoise() {
+		return userList;
+	}
+
+	@Override
+	public void setInfoMessage(String info) {
+		info(info);
+	}
+
+	@Override
+	public void setSelectedIndex(int i) {
+		this.selectedUser = userList.getChoices().get(i);
+	}
+
+	@Override
+	public void setSelectedUser(User user) {
+		formModel.setObject(new User(user.getFirstname(), user.getLastname()));
+	}
+
+	@Override
+	public void setUsers(List<User> users) {
+		userList.getChoices().clear();
+		final List<String> userNames = new ArrayList<String>();
+		for (int i = 0; i < users.size(); i++) {
+			userNames.add(users.get(i).getFirstname() + " " + users.get(i).getLastname());
+
+		}
+
+		this.userList.setChoices(userNames);
+
+	}
+
+	@Override
+	public void setWarningMessage(String warning) {
+		warn(warning);
 	}
 
 	private void initializeComponents() {
@@ -78,7 +142,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.saveUserButton = new AjaxButton("userViewSaveButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
-				presenter.saveAction();
+				presenter.saveAction(target);
 				target.addComponent(feedbackPanel);
 				target.addComponent(userList);
 			}
@@ -109,15 +173,6 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.userList.setMaxRows(5);
 		userList.setOutputMarkupId(true);
 
-		userList.add(new AjaxFormComponentUpdatingBehavior("onchange") {
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-
-				presenter.setSelectedUserAction(userList.getChoices().indexOf(selectedUser));
-				target.addComponent(form);
-			}
-		});
-
 		this.labelFirstname = new Label("userViewLabelFirstname", "Vorname");
 		this.labelLastname = new Label("userViewLabelLastname", "Nachname");
 		this.form = new Form<User>("formPanelId", formModel);
@@ -139,63 +194,4 @@ public class UserView extends Panel implements UserPresenter.Display {
 		add(form);
 		info("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
 	}
-
-	@Override
-	public String getFirstname() {
-		return this.form.getModelObject().getFirstname();
-	}
-
-	@Override
-	public String getLastname() {
-		return this.form.getModelObject().getLastname();
-	}
-
-	@Override
-	public void setWarningMessage(String warning) {
-		warn(warning);
-	}
-
-	@Override
-	public void setInfoMessage(String info) {
-		info(info);
-	}
-
-	@Override
-	public void setUsers(List<User> users) {
-		userList.getChoices().clear();
-		final List<String> userNames = new ArrayList<String>();
-		for (int i = 0; i < users.size(); i++) {
-			userNames.add(users.get(i).getFirstname() + " " + users.get(i).getLastname());
-
-		}
-
-		this.userList.setChoices(userNames);
-
-	}
-
-	@Override
-	public void setSelectedIndex(int i) {
-		this.selectedUser = userList.getChoices().get(i);
-	}
-
-	@Override
-	public int getSelectedIndex() {
-		return this.userList.getChoices().indexOf(selectedUser);
-	}
-
-	@Override
-	public void clearForm() {
-		this.form.setModelObject(new User("", ""));
-	}
-
-	@Override
-	public void clearSelection() {
-		this.selectedUser = null;
-	}
-
-	@Override
-	public void setSelectedUser(User user) {
-		formModel.setObject(new User(user.getFirstname(), user.getLastname()));
-	}
-
 }

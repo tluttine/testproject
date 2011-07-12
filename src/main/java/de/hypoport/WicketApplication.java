@@ -26,23 +26,10 @@ public class WicketApplication extends WebApplication {
 	public WicketApplication() {
 	}
 
-	@Override
-	protected void init() {
-		super.init();
-
-		getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
-		getSecuritySettings().setUnauthorizedComponentInstantiationListener(
-				new TwitterAuthListener(LoginPage.class));
-
-		mountBookmarkablePage("login", LoginPage.class);
-		addComponentInstantiationListener(new SpringComponentInjector(this));
-	}
-
 	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
 	@Override
-
 	public Class<? extends WebPage> getHomePage() {
 		return TwitterCommentPage.class;
 	}
@@ -50,6 +37,17 @@ public class WicketApplication extends WebApplication {
 	@Override
 	public Session newSession(Request request, Response response) {
 		return new TwitterSession(request);
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+
+		getSecuritySettings().setAuthorizationStrategy(new TwitterAuth());
+		getSecuritySettings().setUnauthorizedComponentInstantiationListener(new TwitterAuthListener(LoginPage.class));
+
+		mountBookmarkablePage("login", LoginPage.class);
+		addComponentInstantiationListener(new SpringComponentInjector(this));
 	}
 
 }

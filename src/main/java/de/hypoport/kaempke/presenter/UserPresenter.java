@@ -4,82 +4,76 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.markup.html.form.ListChoice;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.Model;
+
 import de.hypoport.kaempke.model.User;
 
 public final class UserPresenter implements Serializable {
 
+	/**
+	 * Display
+	 * 
+	 * @author kaempke
+	 * 
+	 */
+	public interface Display {
+		void clearForm();
+
+		void clearSelection();
+
+		String getFirstname();
+
+		TextField<String> getFirstnameTextfield();
+
+		String getLastname();
+
+		TextField<String> getLastnameTextField();
+
+		int getSelectedIndex();
+
+		ListChoice<String> getuserListChoise();
+
+		void setInfoMessage(String info);
+
+		void setSelectedIndex(int i);
+
+		void setSelectedUser(User user);
+
+		void setUsers(List<User> users);
+
+		void setWarningMessage(String warning);
+	}
+
+	private static final AttributeModifier TEXTFIELD_VALID_MODUFIER = new AttributeModifier("style", true, Model.of("background-color:#c0f56e"));
+	private static final AttributeModifier TEXTFIELD_WARNINING_MODIFIER = new AttributeModifier("style", true, Model.of("background-color:#ff8073"));
+
+	/**
+	 * Fields
+	 */
 	private final UserPresenter.Display display;
 	private User selectedUser;
+
 	private final List<User> users = new ArrayList<User>();
 
 	/**
+	 * Constructor
 	 * 
 	 * @param display
 	 */
 	public UserPresenter(UserPresenter.Display display) {
 		assert null != display;
 		this.display = display;
+		bind();
 	}
 
-	public interface Display {
-		String getFirstname();
-
-		String getLastname();
-
-		void setWarningMessage(String warning);
-
-		void setInfoMessage(String info);
-
-		void setUsers(List<User> users);
-
-		void setSelectedIndex(int i);
-
-		int getSelectedIndex();
-
-		void clearForm();
-
-		void clearSelection();
-
-		void setSelectedUser(User user);
-
-	}
-
-	public void setSelectedUserAction(int index) {
-		if (index < 0) {
-			return;
-		}
-
-		selectedUser = users.get(index);
-		display.setSelectedUser(selectedUser);
-	}
-
-	public void saveAction() {
-		if (!displayHasValidForm()) {
-			return;
-		}
-
-		final String firstname = display.getFirstname();
-		final String lastname = display.getLastname();
-
-		if (null == selectedUser) {
-			selectedUser = new User(firstname, lastname);
-		}
-
-		if (!users.contains(selectedUser)) {
-			users.add(selectedUser);
-		} else {
-			users.remove(selectedUser);
-			selectedUser = new User(firstname, lastname);
-			users.add(selectedUser);
-		}
-
-		display.setUsers(users);
-		final int selectedUserIndex = users.indexOf(selectedUser);
-		display.setSelectedIndex(selectedUserIndex);		
-		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
-		
-	}
-
+	/**
+	 * Actions
+	 */
 	public void createNewUserAction() {
 		selectedUser = null;
 		display.clearForm();
@@ -102,22 +96,177 @@ public final class UserPresenter implements Serializable {
 		display.setUsers(users);
 	}
 
-	private boolean displayHasValidForm() {
+	public void saveAction(AjaxRequestTarget target) {
+		if (!displayHasValidForm(target)) {
+			return;
+		}
 
 		final String firstname = display.getFirstname();
 		final String lastname = display.getLastname();
 
-		if (null == firstname || firstname.isEmpty()) {
+		if (null == selectedUser) {
+			selectedUser = new User(firstname, lastname);
+		}
+
+		if (!users.contains(selectedUser)) {
+			users.add(selectedUser);
+		} else {
+			users.remove(selectedUser);
+			selectedUser = new User(firstname, lastname);
+			users.add(selectedUser);
+		}
+
+		display.setUsers(users);
+		final int selectedUserIndex = users.indexOf(selectedUser);
+		display.setSelectedIndex(selectedUserIndex);
+		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
+
+	}
+
+	// public void setSelectedUserAction(int index) {
+	// if (index < 0) {
+	// return;
+	// }
+	//
+	// selectedUser = users.get(index);
+	// display.setSelectedUser(selectedUser);
+	// }
+
+	/**
+	 * Display bindings
+	 */
+	private void bind() {
+		display.getFirstnameTextfield().add(new AjaxFormComponentUpdatingBehavior("onBlur") {
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				onBlurFirstname(target);
+			}
+
+		});
+
+		display.getLastnameTextField().add(new AjaxFormComponentUpdatingBehavior("onBlur") {
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				onBlurLastname(target);
+			}
+
+		});
+
+		display.getFirstnameTextfield().add(new AjaxFormComponentUpdatingBehavior("onFocus") {
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				onFocusFirstname(target);
+			}
+		});
+
+		display.getLastnameTextField().add(new AjaxFormComponentUpdatingBehavior("onFocus") {
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				onFocusLastname(target);
+			}
+		});
+
+		display.getuserListChoise().add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				onChangeUserListChoise(target);
+			}
+		});
+	}
+
+	/**
+	 * Private Member
+	 * 
+	 * @return
+	 */
+	private boolean displayHasValidForm(AjaxRequestTarget target) {
+
+		if (!isFirstnameValid()) {
+			target.addComponent(display.getFirstnameTextfield().add(TEXTFIELD_WARNINING_MODIFIER));
 			display.setWarningMessage("Du hast vergessen den Vornamen einzugeben.");
 			return false;
 		}
 
-		if (null == lastname || lastname.isEmpty()) {
+		if (!isLastnameValid()) {
+			target.addComponent(display.getLastnameTextField().add(TEXTFIELD_WARNINING_MODIFIER));
 			display.setWarningMessage("Du hast vergessen den Nachnamen einzugeben.");
 			return false;
 		}
 
+		target.addComponent(display.getLastnameTextField().add(TEXTFIELD_VALID_MODUFIER));
+		target.addComponent(display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER));
 		return true;
 	}
 
+	private boolean isFirstnameValid() {
+		final String firstname = display.getFirstname();
+		return (null == firstname || firstname.isEmpty()) ? false : true;
+	}
+
+	private boolean isLastnameValid() {
+		final String lastname = display.getLastname();
+		return (null == lastname || lastname.isEmpty()) ? false : true;
+	}
+
+	private void onBlurFirstname(AjaxRequestTarget target) {
+		final String firstname = display.getFirstname();
+		if (null == firstname || firstname.isEmpty()) {
+			display.getFirstnameTextfield().add(TEXTFIELD_WARNINING_MODIFIER);
+			target.addComponent(display.getFirstnameTextfield());
+			display.setWarningMessage("Der Vorname ist leer.");
+			return;
+		}
+
+		display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER);
+		target.addComponent(display.getFirstnameTextfield());
+		display.setInfoMessage("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
+
+	}
+
+	private void onBlurLastname(AjaxRequestTarget target) {
+		final String lastname = display.getLastname();
+		if (null == lastname || lastname.isEmpty()) {
+			display.getLastnameTextField().add(TEXTFIELD_WARNINING_MODIFIER);
+			target.addComponent(display.getLastnameTextField());
+			display.setWarningMessage("Der Vorname ist leer.");
+			return;
+		}
+
+		display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER);
+
+		target.addComponent(display.getLastnameTextField());
+		display.setInfoMessage("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
+
+	}
+
+	private void onChangeUserListChoise(AjaxRequestTarget target) {
+		ListChoice<String> userListChoise = display.getuserListChoise();
+		List<? extends String> choices = userListChoise.getChoices();
+		final int index = choices.indexOf(selectedUser);
+
+		if (index < 0) {
+			return;
+		}
+
+		selectedUser = users.get(index);
+		display.setSelectedUser(selectedUser);
+		target.addComponent(display.getFirstnameTextfield());
+		target.addComponent(display.getLastnameTextField());
+	}
+
+	private void onFocusFirstname(AjaxRequestTarget target) {
+		display.getFirstnameTextfield().add(new AttributeModifier("style", true, Model.of("background-color:#cccccc")));
+		target.addComponent(display.getFirstnameTextfield());
+		display.setInfoMessage("Der Nachname wird zur Anzeige in der Benutzerliste benötigt..");
+	}
+
+	private void onFocusLastname(AjaxRequestTarget target) {
+		display.getLastnameTextField().add(new AttributeModifier("style", true, Model.of("background-color:#cccccc")));
+		target.addComponent(display.getLastnameTextField());
+		display.setInfoMessage("Der Vorname wird zur Anzeige in der Benutzerliste benötigt..");
+	}
 }
