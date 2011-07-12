@@ -14,7 +14,7 @@
 			<list>
 				<value>de.hypoport.yatwitter.entity.LoginData</value>
 				<value>de.hypoport.yatwitter.entity.Tweet</value>
-				<value>de.hypoport.yatwitter.entity.Like</value>
+				<value>de.hypoport.yatwitter.entity.LikeDo</value>
 			</list>
 		</property>
 		<property name="hibernateProperties" ref="hibernateProperties"></property>
@@ -33,4 +33,7 @@
 	<bean id="tweetDao" class="de.hypoport.yatwitter.dao.TweetDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-</beans>
+	
+	<bean id="likeDao" class="de.hypoport.yatwitter.dao.LikeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean></beans>

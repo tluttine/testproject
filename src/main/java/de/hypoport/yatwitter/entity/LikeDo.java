@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "like")
-public class Like implements DoInterface<Like.Key> {
+@Table(name = "likeDo")
+public class LikeDo implements DoInterface<LikeDo.Key> {
+	
 	public static class Key implements Serializable {
 		private Integer tweet;
 		private String user;
@@ -74,11 +75,11 @@ public class Like implements DoInterface<Like.Key> {
 	@EmbeddedId
 	private Key key;
 
-	public Like() {
+	public LikeDo() {
 		super();
 	}
 
-	public Like(Key key) {
+	public LikeDo(Key key) {
 		super();
 		this.key = key;
 	}
@@ -91,7 +92,7 @@ public class Like implements DoInterface<Like.Key> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Like other = (Like) obj;
+		LikeDo other = (LikeDo) obj;
 		if (key == null) {
 			if (other.key != null)
 				return false;
@@ -111,6 +112,10 @@ public class Like implements DoInterface<Like.Key> {
 		int result = 1;
 		result = prime * result + ((key == null) ? 0 : key.hashCode());
 		return result;
+	}
+
+	public void setId(LikeDo.Key key) {
+		this.key = key;
 	}
 
 }
