@@ -3,6 +3,8 @@ package de.hypoport;
 import junit.framework.TestCase;
 import org.apache.wicket.util.tester.WicketTester;
 
+import de.hypoport.yatwitter.page.HomePage;
+
 /**
  * Simple test using the WicketTester
  */

@@ -11,9 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.hypoport.yatwitter.entity.DoInterface;
+import de.hypoport.yatwitter.dto.IDataTransferObject;
 
-public abstract class AbstractDao<K extends Serializable, T extends DoInterface<K>> implements DaoInterface<K, T> {
+public abstract class AbstractDao<K extends Serializable, T extends IDataTransferObject<K>> implements IDataAccessObject<K, T> {
 	private static final Logger _logger = LoggerFactory.getLogger(AbstractDao.class);
 
 	private Class<T> _domainClass;

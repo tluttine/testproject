@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 
-import de.hypoport.yatwitter.entity.LikeDo;
-import de.hypoport.yatwitter.entity.Tweet;
+import de.hypoport.yatwitter.dto.Like;
+import de.hypoport.yatwitter.dto.Tweet;
 
-public class LikeDao extends AbstractDao<LikeDo.Key, LikeDo> {
+public class LikeDao extends AbstractDao<Like.Key, Like> {
 
 	public static final String BEAN_ID = "likeDao";
 
 	public LikeDao() {
-		super(LikeDo.class);
+		super(Like.class);
 	}
 
-	public List<LikeDo> getLikesForTweet(Tweet tweet) {
+	public List<Like> getLikesForTweet(Tweet tweet) {
 		return getCriteria().add(Restrictions.eq("id.tweet", tweet.getId())).list();
 	}
 }
