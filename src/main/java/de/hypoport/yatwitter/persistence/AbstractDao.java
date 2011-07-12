@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.hypoport.yatwitter.login.sessions.TwitterSession;
+
 public abstract class AbstractDao<K extends Serializable, T extends DoInterface<K>> implements DaoInterface<K, T> {
 	private static final Logger _logger = LoggerFactory.getLogger(AbstractDao.class);
 
