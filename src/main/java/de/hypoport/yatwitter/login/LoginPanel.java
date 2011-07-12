@@ -11,8 +11,9 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.hypoport.yatwitter.comments.TwitterCommentPage;
+import de.hypoport.yatwitter.dao.LoginDataDao;
+import de.hypoport.yatwitter.entity.LoginData;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
-import de.hypoport.yatwitter.persistence.LoginDataDao;
 import de.hypoport.yatwitter.register.RegisterPage;
 
 public final class LoginPanel extends Panel {

@@ -9,9 +9,10 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 
+import de.hypoport.yatwitter.dao.TweetDao;
+import de.hypoport.yatwitter.entity.Tweet;
 import de.hypoport.yatwitter.events.NewTweetEvent;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
-import de.hypoport.yatwitter.persistence.TweetDao;
 
 public class NewTweetPanel extends Panel {
 

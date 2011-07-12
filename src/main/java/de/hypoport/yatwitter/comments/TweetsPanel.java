@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
+import de.hypoport.yatwitter.entity.Tweet;
 import de.hypoport.yatwitter.events.AbstractEvent;
 import de.hypoport.yatwitter.events.IEventListener;
 import de.hypoport.yatwitter.events.NewTweetEvent;

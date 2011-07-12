@@ -1,4 +1,4 @@
-package de.hypoport.yatwitter.persistence;
+package de.hypoport.yatwitter.entity;
 
 import java.io.Serializable;
 

@@ -1,7 +1,9 @@
-package de.hypoport.yatwitter.persistence;
+package de.hypoport.yatwitter.dao;
 
 import java.io.Serializable;
 import java.util.List;
+
+import de.hypoport.yatwitter.entity.DoInterface;
 
 public interface DaoInterface<K extends Serializable,T extends DoInterface<K>> {
 	void delete(T o);	

@@ -1,4 +1,4 @@
-package de.hypoport.yatwitter.login;
+package de.hypoport.yatwitter.entity;
 
 import java.io.Serializable;
 
@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import de.hypoport.yatwitter.persistence.DoInterface;
 
 @Entity
 @Table(name="loginData")

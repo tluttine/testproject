@@ -1,10 +1,10 @@
-package de.hypoport.yatwitter.persistence;
+package de.hypoport.yatwitter.dao;
 
 import java.util.List;
 
 import org.hibernate.criterion.Order;
 
-import de.hypoport.yatwitter.comments.Tweet;
+import de.hypoport.yatwitter.entity.Tweet;
 
 public class TweetDao extends AbstractDao<Integer, Tweet> {
 

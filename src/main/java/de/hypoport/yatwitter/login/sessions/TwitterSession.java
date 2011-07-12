@@ -4,7 +4,7 @@ import org.apache.wicket.Request;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 
-import de.hypoport.yatwitter.login.LoginData;
+import de.hypoport.yatwitter.entity.LoginData;
 
 
 public class TwitterSession extends WebSession {
