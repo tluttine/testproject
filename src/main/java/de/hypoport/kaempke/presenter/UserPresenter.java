@@ -7,11 +7,13 @@ import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
 import de.hypoport.kaempke.model.User;
+import de.hypoport.kaempke.view.UserView;
 
 public final class UserPresenter implements Serializable {
 
@@ -30,11 +32,15 @@ public final class UserPresenter implements Serializable {
 
 		TextField<String> getFirstnameTextfield();
 
+		Form<User> getForm();
+
 		String getLastname();
 
 		TextField<String> getLastnameTextField();
 
 		int getSelectedIndex();
+
+		String getSelectedUser();
 
 		ListChoice<String> getuserListChoise();
 
@@ -49,15 +55,11 @@ public final class UserPresenter implements Serializable {
 		void setWarningMessage(String warning);
 	}
 
-	private static final AttributeModifier TEXTFIELD_VALID_MODUFIER = new AttributeModifier("style", true, Model.of("background-color:#c0f56e"));
-	private static final AttributeModifier TEXTFIELD_WARNINING_MODIFIER = new AttributeModifier("style", true, Model.of("background-color:#ff8073"));
-
 	/**
 	 * Fields
 	 */
 	private final UserPresenter.Display display;
 	private User selectedUser;
-
 	private final List<User> users = new ArrayList<User>();
 
 	/**
@@ -123,15 +125,6 @@ public final class UserPresenter implements Serializable {
 
 	}
 
-	// public void setSelectedUserAction(int index) {
-	// if (index < 0) {
-	// return;
-	// }
-	//
-	// selectedUser = users.get(index);
-	// display.setSelectedUser(selectedUser);
-	// }
-
 	/**
 	 * Display bindings
 	 */
@@ -186,19 +179,19 @@ public final class UserPresenter implements Serializable {
 	private boolean displayHasValidForm(AjaxRequestTarget target) {
 
 		if (!isFirstnameValid()) {
-			target.addComponent(display.getFirstnameTextfield().add(TEXTFIELD_WARNINING_MODIFIER));
+			target.addComponent(display.getFirstnameTextfield().add(UserView.TEXTFIELD_WARNINING_MODIFIER));
 			display.setWarningMessage("Du hast vergessen den Vornamen einzugeben.");
 			return false;
 		}
 
 		if (!isLastnameValid()) {
-			target.addComponent(display.getLastnameTextField().add(TEXTFIELD_WARNINING_MODIFIER));
+			target.addComponent(display.getLastnameTextField().add(UserView.TEXTFIELD_WARNINING_MODIFIER));
 			display.setWarningMessage("Du hast vergessen den Nachnamen einzugeben.");
 			return false;
 		}
 
-		target.addComponent(display.getLastnameTextField().add(TEXTFIELD_VALID_MODUFIER));
-		target.addComponent(display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER));
+		target.addComponent(display.getLastnameTextField().add(UserView.TEXTFIELD_VALID_MODUFIER));
+		target.addComponent(display.getFirstnameTextfield().add(UserView.TEXTFIELD_VALID_MODUFIER));
 		return true;
 	}
 
@@ -215,13 +208,13 @@ public final class UserPresenter implements Serializable {
 	private void onBlurFirstname(AjaxRequestTarget target) {
 		final String firstname = display.getFirstname();
 		if (null == firstname || firstname.isEmpty()) {
-			display.getFirstnameTextfield().add(TEXTFIELD_WARNINING_MODIFIER);
+			display.getFirstnameTextfield().add(UserView.TEXTFIELD_WARNINING_MODIFIER);
 			target.addComponent(display.getFirstnameTextfield());
 			display.setWarningMessage("Der Vorname ist leer.");
 			return;
 		}
 
-		display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER);
+		display.getFirstnameTextfield().add(UserView.TEXTFIELD_VALID_MODUFIER);
 		target.addComponent(display.getFirstnameTextfield());
 		display.setInfoMessage("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
 
@@ -230,13 +223,13 @@ public final class UserPresenter implements Serializable {
 	private void onBlurLastname(AjaxRequestTarget target) {
 		final String lastname = display.getLastname();
 		if (null == lastname || lastname.isEmpty()) {
-			display.getLastnameTextField().add(TEXTFIELD_WARNINING_MODIFIER);
+			display.getLastnameTextField().add(UserView.TEXTFIELD_WARNINING_MODIFIER);
 			target.addComponent(display.getLastnameTextField());
 			display.setWarningMessage("Der Vorname ist leer.");
 			return;
 		}
 
-		display.getFirstnameTextfield().add(TEXTFIELD_VALID_MODUFIER);
+		display.getFirstnameTextfield().add(UserView.TEXTFIELD_VALID_MODUFIER);
 
 		target.addComponent(display.getLastnameTextField());
 		display.setInfoMessage("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
@@ -244,9 +237,9 @@ public final class UserPresenter implements Serializable {
 	}
 
 	private void onChangeUserListChoise(AjaxRequestTarget target) {
-		ListChoice<String> userListChoise = display.getuserListChoise();
-		List<? extends String> choices = userListChoise.getChoices();
-		final int index = choices.indexOf(selectedUser);
+		final ListChoice<String> userListChoise = display.getuserListChoise();
+		final List<? extends String> choices = userListChoise.getChoices();
+		final int index = choices.indexOf(display.getSelectedUser());
 
 		if (index < 0) {
 			return;
@@ -254,8 +247,7 @@ public final class UserPresenter implements Serializable {
 
 		selectedUser = users.get(index);
 		display.setSelectedUser(selectedUser);
-		target.addComponent(display.getFirstnameTextfield());
-		target.addComponent(display.getLastnameTextField());
+		target.addComponent(display.getForm());
 	}
 
 	private void onFocusFirstname(AjaxRequestTarget target) {

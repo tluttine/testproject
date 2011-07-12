@@ -76,5 +76,4 @@ public class Tweet implements Serializable, DoInterface<Integer> {
 	public void setUser(String user) {
 		this.user = user;
 	}
-
 }

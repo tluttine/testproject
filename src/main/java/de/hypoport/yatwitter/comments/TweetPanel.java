@@ -9,7 +9,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import de.hypoport.yatwitter.dao.TweetDao;
-import de.hypoport.yatwitter.entity.Like;
 import de.hypoport.yatwitter.entity.Tweet;
 import de.hypoport.yatwitter.login.sessions.TwitterSession;
 
@@ -47,15 +46,16 @@ public class TweetPanel extends Panel {
 					return;
 				}
 
-				final Like like = new Like(new Like.Key(tweet.getId(), loggedUser));
-				if (tweet.getLikes().contains(like)) {
-					return;
-				}
-
-				tweet.addLike(like);
-				tweetDao.save(tweet);
-				counter.setObject(tweet.getLikes().size());
-				target.addComponent(labelLikeCounter);
+				// final Like like = new Like(new Like.Key(tweet.getId(),
+				// loggedUser));
+				// if (tweet.getLikes().contains(like)) {
+				// return;
+				// }
+				//
+				// tweet.addLike(like);
+				// tweetDao.save(tweet);
+				// counter.setObject(tweet.getLikes().size());
+				// target.addComponent(labelLikeCounter);
 
 			}
 

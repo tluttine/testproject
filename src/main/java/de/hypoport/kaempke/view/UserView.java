@@ -3,6 +3,7 @@ package de.hypoport.kaempke.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -14,12 +15,20 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import de.hypoport.kaempke.model.User;
 import de.hypoport.kaempke.presenter.UserPresenter;
 
 public class UserView extends Panel implements UserPresenter.Display {
+
+	/**
+	 * static member
+	 */
+	public static final AttributeModifier TEXTFIELD_VALID_MODUFIER = new AttributeModifier("style", true, Model.of("background-color:#c0f56e"));
+	public static final AttributeModifier TEXTFIELD_WARNINING_MODIFIER = new AttributeModifier("style", true, Model.of("background-color:#ff8073"));
+	public static final AttributeModifier TEXTFIELD_DEFAULT_MODIFIER = new AttributeModifier("style", true, Model.of("background-color:#cccccc"));
 
 	private static final long serialVersionUID = 1L;
 	private final UserPresenter presenter;
@@ -48,6 +57,8 @@ public class UserView extends Panel implements UserPresenter.Display {
 	@Override
 	public void clearForm() {
 		this.form.setModelObject(new User("", ""));
+		textFieldFirstname.add(TEXTFIELD_DEFAULT_MODIFIER);
+		textFieldLastname.add(TEXTFIELD_DEFAULT_MODIFIER);
 	}
 
 	@Override
@@ -66,6 +77,11 @@ public class UserView extends Panel implements UserPresenter.Display {
 	}
 
 	@Override
+	public Form<User> getForm() {
+		return form;
+	}
+
+	@Override
 	public String getLastname() {
 		return this.form.getModelObject().getLastname();
 	}
@@ -78,6 +94,11 @@ public class UserView extends Panel implements UserPresenter.Display {
 	@Override
 	public int getSelectedIndex() {
 		return this.userList.getChoices().indexOf(selectedUser);
+	}
+
+	@Override
+	public String getSelectedUser() {
+		return selectedUser;
 	}
 
 	@Override
