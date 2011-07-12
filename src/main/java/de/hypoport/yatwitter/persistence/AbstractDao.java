@@ -40,12 +40,14 @@ public abstract class AbstractDao<K extends Serializable, T extends DoInterface<
 	}
 
 	@Override
+	@Transactional
 	public List<T> findAll(int offset, int max) {
 		Criteria criteria = getSession().createCriteria(_domainClass);
 		if (offset != 0)
 			criteria.setFirstResult(offset);
 		if (max != 0)
 			criteria.setMaxResults(max);
+
 		return criteria.list();
 	}
 

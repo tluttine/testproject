@@ -16,73 +16,81 @@ import javax.persistence.Transient;
 import de.hypoport.yatwitter.persistence.DoInterface;
 
 @Entity
-@Table(name="Tweet")
+@Table(name = "Tweet")
 public class Tweet implements Serializable, DoInterface<Integer> {
 	private String user;
 	private String message;
 	private Date date;
 
-	private Set<String> likes;
+	private final Set<String> likes = new HashSet<String>();
 	private int likesCount;
 	private Integer id;
+
+	public Tweet() {
+
+	}
 
 	public Tweet(String username, String comment) {
 		user = username;
 		message = comment;
-		date=new Date();
-		likes=new HashSet<String>();
-	}
-	
-	@Override
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer newId) {
-		id = newId;
-	}
-	
-	@Column(nullable=false,name="message")
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
+		date = new Date();
+
 	}
 
-	@Column(nullable=false,name="user")
-	public String getUser() {
-		return user;
-	}
-	public void setUser(String user) {
-		this.user = user;
+	public void addLike(String userId) {
+		this.likes.add(userId);
 	}
 
-	@Column(nullable=false,name="date")
+	@Column(nullable = false, name = "date")
 	public Date getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+
+	@Override
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Integer getId() {
+		return id;
 	}
 
-	@Column(nullable=false,name="likes_count")
-	public void setLikesCount(int likesCount) {
-		this.likesCount = likesCount;
+	@Transient
+	public int getLikes() {
+		return likes.size();
 	}
 
 	public int getLikesCount() {
 		return likesCount;
 	}
-	
-	public void addLike(String userId) {
-		this.likes.add(userId);
+
+	@Column(nullable = false, name = "message")
+	public String getMessage() {
+		return message;
 	}
-	
-	@Transient
-	public int getLikes() {
-		return likes.size();
+
+	@Column(nullable = false, name = "user")
+	public String getUser() {
+		return user;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public void setId(Integer newId) {
+		id = newId;
+	}
+
+	@Column(nullable = false, name = "likes_count")
+	public void setLikesCount(int likesCount) {
+		this.likesCount = likesCount;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 }
