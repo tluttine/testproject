@@ -10,27 +10,27 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.hypoport.yatwitter.dao.LoginDataDao;
-import de.hypoport.yatwitter.dto.LoginData;
+import de.hypoport.yatwitter.dao.UserDao;
+import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.page.register.RegisterPage;
 import de.hypoport.yatwitter.page.tweet.TwitterPage;
 import de.hypoport.yatwitter.session.TwitterSession;
 
 public final class LoginPanel extends Panel {
 
-	@SpringBean(name = LoginDataDao.BEAN_ID)
-	private LoginDataDao loginDataDao;
+	@SpringBean(name = UserDao.BEAN_ID)
+	private UserDao userDao;
 
 	public LoginPanel(String id) {
 		super(id);
 
-		final IModel<LoginData> formModel = new CompoundPropertyModel<LoginData>(new LoginData());
-		final Form<LoginData> form = new Form<LoginData>("form", formModel) {
+		final IModel<User> formModel = new CompoundPropertyModel<User>(new User());
+		final Form<User> form = new Form<User>("form", formModel) {
 			@Override
 			protected void onSubmit() {
 				// login prüfen
-				final LoginData loginData = getModelObject();
-				LoginData loginDataDb = loginDataDao.get(loginData.getName());
+				final User loginData = getModelObject();
+				User loginDataDb = userDao.get(loginData.getName());
 				if (null == loginDataDb) {
 					warn("Der Benutzer existiert noch nicht in der Datenbank.");
 					return;
@@ -55,7 +55,7 @@ public final class LoginPanel extends Panel {
 		nameField.setRequired(true);
 		form.add(nameField);
 		form.add(new PasswordTextField("password"));
-		add(new Link<String>("linkRegister", Model.of("Registrieren")) {
+		form.add(new Link<String>("linkRegister", Model.of("Registrieren")) {
 
 			@Override
 			public void onClick() {

@@ -1,39 +1,17 @@
 <html>
 <head>
-	<title wicket:id="title">Title</title>
-	<style type="text/css">
-		body {
-			margin:0px;
-		}
-		#head h1 {
-			margin:0px;
-			padding: 20px;
-		}
-		#head {
-			background-color: #c0c0b0;
-			margin:0px;
-			padding:0px;
-		}
-		#content {
-			background-color: #d0d0c0;
-			margin:0px;
-			padding:20px;
-		}
-		#loginPanel {
-			background-color: fuchsia;
-		}
-	</style>
+<title wicket:id="title">Title</title>
 </head>
 <body>
-	<div id="head">
-		<h1 wicket:id="headline">Headline</h1>
-		<div wicket:id="feedback"></div>
-	</div>
-	
+	<div id="main">
+		<div id="head">
+			<div wicket:id="feedback"></div>
+		</div>
 
-	<div id="content">
-		<wicket:child />
+
+		<div id="content">
+			<wicket:child />
+		</div>
 	</div>
-	<a wicket:id="logoutLink">logout</a>	
 </body>
 </html>

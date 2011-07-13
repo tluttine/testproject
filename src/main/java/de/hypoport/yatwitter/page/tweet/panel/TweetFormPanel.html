@@ -1,6 +1,23 @@
 <wicket:panel>
-    <form wicket:id="commentFormId">
-    	<input type="text" wicket:id="textAreaComment"/><br>
-    	<input type="submit" value="Kommentieren" wicket:id="submit"/>
-    </form>	
+	<form wicket:id="commentFormId">
+		<table>
+			<tr>
+				<td colspan="2"><span wicket:id="tweetCommentTitle"></span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><textarea cols="50" wicket:id="textAreaComment" ></textarea>
+				</td>
+			</tr>
+			<tr>
+				<td id="formLink"><a wicket:id="logoutLink">abmelden</a>
+				</td>
+				<td id="formButton"><input type="submit" value="Kommentieren"
+					wicket:id="submit"></input>
+				</td>
+
+			</tr>
+
+		</table>
+	</form>
 </wicket:panel>

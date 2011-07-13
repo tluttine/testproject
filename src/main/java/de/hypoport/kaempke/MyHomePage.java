@@ -7,7 +7,6 @@ import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.WebPage;
 
 import de.hypoport.kaempke.view.UserView;
-import de.hypoport.yatwitter.page.HomePage;
 
 public class MyHomePage extends WebPage {
 	// TODO Add any page properties or variables here
@@ -20,11 +19,11 @@ public class MyHomePage extends WebPage {
 	 */
 	public MyHomePage(final PageParameters parameters) {
 		add(new UserView("userView"));
-		
+
 		ResourceReference cssRef = new ResourceReference(MyHomePage.class, "view/resources/css/kaempke.css");
 		ResourceReference jsRef = new ResourceReference(MyHomePage.class, "view/resources/js/kaempke.css");
-        add(CSSPackageResource.getHeaderContribution(cssRef));
-        add(JavascriptPackageResource.getHeaderContribution(jsRef));
+		add(CSSPackageResource.getHeaderContribution(cssRef));
+		add(JavascriptPackageResource.getHeaderContribution(jsRef));
 
 	}
 }

@@ -1,34 +1,26 @@
 package de.hypoport.yatwitter.page;
 
+import org.apache.wicket.ResourceReference;
+import org.apache.wicket.markup.html.CSSPackageResource;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 
-import de.hypoport.yatwitter.page.component.LogoutLink;
-
-
 public abstract class AbstractBasePage extends WebPage {
 
-	
-	private Model<String> titleModel;
-	private Model<String> headlineModel;
+	private final Model<String> titleModel;
 
 	public AbstractBasePage() {
+		final ResourceReference cssRef = new ResourceReference(AbstractBasePage.class, "../css/yatwitter.css");
+		add(CSSPackageResource.getHeaderContribution(cssRef));
 		titleModel = Model.of("Title");
-		headlineModel = Model.of("Headline");
-		
-		add(new Label("title",titleModel));
-		add(new Label("headline",headlineModel));
+		add(new Label("title", titleModel));
 		add(new FeedbackPanel("feedback"));
-		add(new LogoutLink("logoutLink"));
+		info("Willkommen bei yatwitter");
 	}
-	
+
 	protected void setTitle(String title) {
 		titleModel.setObject(title);
-	}
-	
-	protected void setHeadline(String headline) {
-		headlineModel.setObject(headline);
 	}
 }

@@ -2,31 +2,29 @@
 	<form wicket:id="registerForm">
 		<table>
 			<tr>
-				<td><label wicket:id="labelUsername"></label>
-				</td>
-				<td><input wicket:id="username" />
-				</td>
+				<td colspan="2"><label wicket:id="labelUsername"></label></td>
 			</tr>
 			<tr>
-				<td><label wicket:id="labelPassword"></label>
-				</td>
-				<td><input type="password" wicket:id="password" />
-				</td>
+				<td colspan="2"><input wicket:id="username" type="text"/></td>
 			</tr>
 			<tr>
-				<td><label wicket:id="labelPasswordRepeat"></label>
-				</td>
-				<td><input type="password" wicket:id="passwordRepeat" />
-				</td>
+				<td colspan="2"><label wicket:id="labelPassword"></label></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><input type="submit" value="los damit" />
-				</td>
+				<td colspan="2"><input type="password" wicket:id="password" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><label wicket:id="labelPasswordRepeat"></label></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="password" wicket:id="passwordRepeat" /></td>
+			</tr>
+			<tr>
+				<td class="formLink"><a wicket:id="linkToLogin">Zurück zu Anmeldung</a></td>
+				<td class="formButton"><input type="submit" value="los damit" /></td>
 			</tr>
 		</table>
-		
+
 	</form>
-	<a wicket:id="linkToLogin">Anmelden</a>
-	
+
 </wicket:extend>

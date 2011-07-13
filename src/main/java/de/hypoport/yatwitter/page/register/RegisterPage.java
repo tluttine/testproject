@@ -11,8 +11,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.hypoport.yatwitter.dao.LoginDataDao;
-import de.hypoport.yatwitter.dto.LoginData;
+import de.hypoport.yatwitter.dao.UserDao;
+import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.model.RegisterData;
 import de.hypoport.yatwitter.page.AbstractBasePage;
 import de.hypoport.yatwitter.page.login.LoginPage;
@@ -24,8 +24,8 @@ public final class RegisterPage extends AbstractBasePage {
 	private Form<RegisterData> registerDataForm;
 	private final IModel<RegisterData> registerFormModel = new CompoundPropertyModel<RegisterData>(new RegisterData());
 
-	@SpringBean(name = LoginDataDao.BEAN_ID)
-	private LoginDataDao loginDataDao;
+	@SpringBean(name = UserDao.BEAN_ID)
+	private UserDao loginDataDao;
 
 	public RegisterPage() {
 		initializeComponents();
@@ -33,7 +33,6 @@ public final class RegisterPage extends AbstractBasePage {
 
 	private void initializeComponents() {
 		setTitle("Register");
-		setHeadline("Registrieren");
 		registerDataForm = new Form<RegisterData>("registerForm", registerFormModel) {
 
 			@Override
@@ -44,7 +43,7 @@ public final class RegisterPage extends AbstractBasePage {
 					return;
 				}
 				String password = registerFormModel.getObject().getPassword();
-				final LoginData loginData = new LoginData(username, password);
+				final User loginData = new User(username, password);
 				loginDataDao.save(loginData);
 				TwitterSession.get().setUser(loginData);
 
@@ -71,7 +70,7 @@ public final class RegisterPage extends AbstractBasePage {
 		registerDataForm.add(textFieldPasswordRepeat);
 
 		add(registerDataForm);
-		add(new Link<String>("linkToLogin", Model.of("zurück zur Anmeldung")) {
+		registerDataForm.add(new Link<String>("linkToLogin", Model.of("zurück zur Anmeldung")) {
 
 			@Override
 			public void onClick() {

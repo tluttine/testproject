@@ -4,12 +4,12 @@ import org.apache.wicket.Request;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 
-import de.hypoport.yatwitter.dto.LoginData;
+import de.hypoport.yatwitter.dto.User;
 
 
 public class TwitterSession extends WebSession {
 
-	private LoginData loginData;
+	private User loginData;
 
 	public TwitterSession(Request request) {
 		super(request);
@@ -19,7 +19,7 @@ public class TwitterSession extends WebSession {
 		return (TwitterSession) Session.get();
 	}
 
-	public void setUser(LoginData loginData) {
+	public void setUser(User loginData) {
 		this.loginData = loginData;
 	}
 	

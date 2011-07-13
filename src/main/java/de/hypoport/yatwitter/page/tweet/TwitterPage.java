@@ -2,7 +2,6 @@ package de.hypoport.yatwitter.page.tweet;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.apache.wicket.ajax.AjaxSelfUpdatingTimerBehavior;
@@ -14,7 +13,6 @@ import org.apache.wicket.util.convert.converters.DateConverter;
 import org.apache.wicket.util.time.Duration;
 
 import de.hypoport.yatwitter.annotation.OnlyWithLogin;
-import de.hypoport.yatwitter.dto.Tweet;
 import de.hypoport.yatwitter.event.AbstractEvent;
 import de.hypoport.yatwitter.event.NewTweetEvent;
 import de.hypoport.yatwitter.listener.IEventListener;
@@ -31,10 +29,9 @@ public class TwitterPage extends AbstractBasePage implements IEventListener {
 	public TwitterPage() {
 
 		setTitle("Eigene Tweets");
-		setHeadline("Was machst Du?");
 
 		add(new TweetFormPanel("newtweets"));
-		add(new TweetListPanel("tweets", (IModel<? extends List<? extends Tweet>>) new TweetsModel()));
+		add(new TweetListPanel("tweets", new TweetsModel()));
 
 		IModel<Date> dateModel = new LoadableDetachableModel<Date>() {
 			@Override
