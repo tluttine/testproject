@@ -6,13 +6,10 @@ import java.util.List;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -21,7 +18,7 @@ import org.apache.wicket.model.PropertyModel;
 import de.hypoport.kaempke.model.MyUser;
 import de.hypoport.kaempke.presenter.UserPresenter;
 
-public class UserView extends Panel implements UserPresenter.Display {
+public class UserView extends AbstractView implements UserPresenter.Display {
 
 	/**
 	 * static member
@@ -32,7 +29,6 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	private static final long serialVersionUID = 1L;
 	private final UserPresenter presenter;
-	private FeedbackPanel feedbackPanel;
 	private Form<MyUser> form;
 	private ListChoice<String> userList;
 	private AjaxButton createNewUserButton;
@@ -141,30 +137,11 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	private void initializeComponents() {
 
-		feedbackPanel = new FeedbackPanel("userViewFeedbackPanel") {
-			@Override
-			protected String getCSSClass(FeedbackMessage message) {
-				switch (message.getLevel()) {
-				case FeedbackMessage.INFO:
-					return "infoFeedback";
-				case FeedbackMessage.WARNING:
-					return "warningFeedback";
-				case FeedbackMessage.ERROR:
-					return "errorFeedback";
-				default:
-					return super.getCSSClass(message);
-				}
-
-			}
-		};
-		feedbackPanel.setOutputMarkupId(true);
-		feedbackPanel.setMaxMessages(1);
-
 		this.saveUserButton = new AjaxButton("userViewSaveButton") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.saveAction(target);
-				target.addComponent(feedbackPanel);
+				// target.addComponent(feedbackPanel);
 				target.addComponent(userList);
 			}
 		};
@@ -174,7 +151,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.removeAction();
 				target.addComponent(form);
-				target.addComponent(feedbackPanel);
+				// target.addComponent(feedbackPanel);
 			}
 		};
 
@@ -182,7 +159,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.createNewUserAction();
-				target.addComponent(feedbackPanel);
+				// target.addComponent(feedbackPanel);
 				target.addComponent(form);
 			}
 		};
@@ -211,7 +188,6 @@ public class UserView extends Panel implements UserPresenter.Display {
 		this.form.add(textFieldLastname);
 		this.form.add(saveUserButton);
 
-		add(feedbackPanel);
 		add(form);
 		info("Hier kannst Du Benutzer hinzufügen, bearbeiten oder löschen.");
 	}
