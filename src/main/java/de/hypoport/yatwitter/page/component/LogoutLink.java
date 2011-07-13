@@ -1,6 +1,7 @@
 package de.hypoport.yatwitter.page.component;
 
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.IModel;
 
 import de.hypoport.yatwitter.page.login.LoginPage;
 import de.hypoport.yatwitter.session.TwitterSession;
@@ -8,7 +9,12 @@ import de.hypoport.yatwitter.session.TwitterSession;
 public class LogoutLink extends Link<String> {
 	public LogoutLink(String id) {
 		super(id);
-		// TODO Auto-generated constructor stub
+
+	}
+
+	public LogoutLink(String id, IModel<String> model) {
+		super(id, model);
+
 	}
 
 	@Override

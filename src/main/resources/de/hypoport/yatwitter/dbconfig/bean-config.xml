@@ -12,7 +12,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<value>de.hypoport.yatwitter.dto.LoginData</value>
+				<value>de.hypoport.yatwitter.dto.User</value>
 				<value>de.hypoport.yatwitter.dto.Tweet</value>
 				<value>de.hypoport.yatwitter.dto.Like</value>
 			</list>
@@ -26,7 +26,7 @@
 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	
-	<bean id="loginDataDao" class="de.hypoport.yatwitter.dao.LoginDataDao">
+	<bean id="userDao" class="de.hypoport.yatwitter.dao.UserDao">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	

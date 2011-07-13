@@ -2,12 +2,12 @@ package de.hypoport.kaempke.model;
 
 import java.io.Serializable;
 
-public final class User implements Serializable{
+public final class MyUser implements Serializable{
 	private final String firstname;
 	private final String lastname;
 	
 	
-	public User(String firstname, String lastname) {
+	public MyUser(String firstname, String lastname) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -38,7 +38,7 @@ public final class User implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		MyUser other = (MyUser) obj;
 		if (firstname == null) {
 			if (other.firstname != null)
 				return false;

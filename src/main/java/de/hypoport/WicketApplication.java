@@ -49,5 +49,4 @@ public class WicketApplication extends WebApplication {
 		mountBookmarkablePage("login", LoginPage.class);
 		addComponentInstantiationListener(new SpringComponentInjector(this));
 	}
-
 }

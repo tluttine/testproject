@@ -12,7 +12,7 @@ import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
-import de.hypoport.kaempke.model.User;
+import de.hypoport.kaempke.model.MyUser;
 import de.hypoport.kaempke.view.UserView;
 
 public final class UserPresenter implements Serializable {
@@ -32,7 +32,7 @@ public final class UserPresenter implements Serializable {
 
 		TextField<String> getFirstnameTextfield();
 
-		Form<User> getForm();
+		Form<MyUser> getForm();
 
 		String getLastname();
 
@@ -48,9 +48,9 @@ public final class UserPresenter implements Serializable {
 
 		void setSelectedIndex(int i);
 
-		void setSelectedUser(User user);
+		void setSelectedUser(MyUser user);
 
-		void setUsers(List<User> users);
+		void setUsers(List<MyUser> users);
 
 		void setWarningMessage(String warning);
 	}
@@ -59,8 +59,8 @@ public final class UserPresenter implements Serializable {
 	 * Fields
 	 */
 	private final UserPresenter.Display display;
-	private User selectedUser;
-	private final List<User> users = new ArrayList<User>();
+	private MyUser selectedUser;
+	private final List<MyUser> users = new ArrayList<MyUser>();
 
 	/**
 	 * Constructor
@@ -107,14 +107,14 @@ public final class UserPresenter implements Serializable {
 		final String lastname = display.getLastname();
 
 		if (null == selectedUser) {
-			selectedUser = new User(firstname, lastname);
+			selectedUser = new MyUser(firstname, lastname);
 		}
 
 		if (!users.contains(selectedUser)) {
 			users.add(selectedUser);
 		} else {
 			users.remove(selectedUser);
-			selectedUser = new User(firstname, lastname);
+			selectedUser = new MyUser(firstname, lastname);
 			users.add(selectedUser);
 		}
 

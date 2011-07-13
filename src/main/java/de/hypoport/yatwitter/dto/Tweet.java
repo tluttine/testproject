@@ -64,7 +64,6 @@ public class Tweet implements Serializable, IDataTransferObject<Integer> {
 		id = newId;
 	}
 
-	@Column(nullable = false, name = "likes_count")
 	public void setLikesCount(int likesCount) {
 		this.likesCount = likesCount;
 	}

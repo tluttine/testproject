@@ -18,7 +18,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
-import de.hypoport.kaempke.model.User;
+import de.hypoport.kaempke.model.MyUser;
 import de.hypoport.kaempke.presenter.UserPresenter;
 
 public class UserView extends Panel implements UserPresenter.Display {
@@ -33,15 +33,15 @@ public class UserView extends Panel implements UserPresenter.Display {
 	private static final long serialVersionUID = 1L;
 	private final UserPresenter presenter;
 	private FeedbackPanel feedbackPanel;
-	private Form<User> form;
+	private Form<MyUser> form;
 	private ListChoice<String> userList;
 	private AjaxButton createNewUserButton;
 	private AjaxButton removeUserButton;
 	private AjaxButton saveUserButton;
 	private Label labelFirstname;
 	private Label labelLastname;
-	private final User user = new User("", "");
-	private final IModel<User> formModel = new CompoundPropertyModel<User>(this.user);
+	private final MyUser user = new MyUser("", "");
+	private final IModel<MyUser> formModel = new CompoundPropertyModel<MyUser>(this.user);
 	private TextField<String> textFieldFirstname;
 	private TextField<String> textFieldLastname;
 
@@ -56,7 +56,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 	@Override
 	public void clearForm() {
-		this.form.setModelObject(new User("", ""));
+		this.form.setModelObject(new MyUser("", ""));
 		textFieldFirstname.add(TEXTFIELD_DEFAULT_MODIFIER);
 		textFieldLastname.add(TEXTFIELD_DEFAULT_MODIFIER);
 	}
@@ -77,7 +77,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 	}
 
 	@Override
-	public Form<User> getForm() {
+	public Form<MyUser> getForm() {
 		return form;
 	}
 
@@ -117,12 +117,12 @@ public class UserView extends Panel implements UserPresenter.Display {
 	}
 
 	@Override
-	public void setSelectedUser(User user) {
-		formModel.setObject(new User(user.getFirstname(), user.getLastname()));
+	public void setSelectedUser(MyUser user) {
+		formModel.setObject(new MyUser(user.getFirstname(), user.getLastname()));
 	}
 
 	@Override
-	public void setUsers(List<User> users) {
+	public void setUsers(List<MyUser> users) {
 		userList.getChoices().clear();
 		final List<String> userNames = new ArrayList<String>();
 		for (int i = 0; i < users.size(); i++) {
@@ -196,7 +196,7 @@ public class UserView extends Panel implements UserPresenter.Display {
 
 		this.labelFirstname = new Label("userViewLabelFirstname", "Vorname");
 		this.labelLastname = new Label("userViewLabelLastname", "Nachname");
-		this.form = new Form<User>("formPanelId", formModel);
+		this.form = new Form<MyUser>("formPanelId", formModel);
 
 		this.form.add(this.removeUserButton);
 

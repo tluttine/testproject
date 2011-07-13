@@ -9,7 +9,7 @@ import de.hypoport.yatwitter.dto.Tweet;
 
 public class LikeDao extends AbstractDao<Like.Key, Like> {
 
-	public static final String BEAN_ID = "likeDao";
+	public static final String BEAN_ID = "tweetDao";
 
 	public LikeDao() {
 		super(Like.class);
