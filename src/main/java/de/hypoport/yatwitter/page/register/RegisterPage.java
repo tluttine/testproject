@@ -70,7 +70,7 @@ public final class RegisterPage extends AbstractBasePage {
 		registerDataForm.add(textFieldPasswordRepeat);
 
 		add(registerDataForm);
-		add(new Link<String>("linkToLogin", Model.of("zurück zur Anmeldung")) {
+		registerDataForm.add(new Link<String>("linkToLogin", Model.of("zurück zur Anmeldung")) {
 
 			@Override
 			public void onClick() {

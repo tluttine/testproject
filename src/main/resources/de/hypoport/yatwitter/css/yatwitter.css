@@ -1,0 +1,67 @@
+body main{
+
+}
+
+#head h1 {
+	margin: 0px;
+	padding: 20px;
+}
+
+#main  {
+	width:500px;
+	
+}
+
+#tweetListTable {
+	width:100%;
+	padding:10px;
+}
+
+.tweetDataRow td {
+	padding-top:15px;
+}
+
+.tweetRow td {
+	border-bottom: 1px solid #000;
+	padding-bottom:15px;
+}
+
+.tweetDate {
+	text-align: center;
+}
+
+.tweetLikeLink {
+	text-align: right;
+}
+
+#head {
+	border:1px black solid;	
+	margin: 0 0 15px 0;
+	padding: 0px;
+}
+
+input[type=text],input[type=password] {
+	width:400px;
+}
+
+.feedbackPanel {
+	list-style:none;
+}
+
+#content {
+	border:1px black solid;
+	margin: 0px;
+	padding: 20px;
+}
+
+.formLink, .formButton{
+	padding-top:20px;
+}
+
+.formButton {
+	text-align: right;
+}
+
+#loginPanel {
+	background-color: fuchsia;
+}
