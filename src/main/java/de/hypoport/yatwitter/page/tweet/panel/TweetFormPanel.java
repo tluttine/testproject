@@ -37,6 +37,11 @@ public class TweetFormPanel extends Panel {
 		commentForm.add(new AjaxButton("submit") {
 
 			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form) {
+				super.onError(target, form);
+			}
+
+			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				final String comment = commentAreaModel.getObject();
 				final TwitterSession session = (TwitterSession) getSession();
@@ -47,6 +52,7 @@ public class TweetFormPanel extends Panel {
 				new NewTweetEvent(this).fire();
 				target.addComponent(commentForm);
 			}
+
 		});
 		commentForm.add(new LogoutLink("logoutLink", Model.of("abmelden")));
 		commentForm.add(new Label("tweetCommentTitle", Model.of("Was machst Du?")));

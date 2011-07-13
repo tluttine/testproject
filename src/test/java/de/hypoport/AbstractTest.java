@@ -13,6 +13,11 @@ import java.util.Map;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 public abstract class AbstractTest extends AbstractTransactionalDataSourceSpringContextTests {
+
+	public AbstractTest() {
+		setDefaultRollback(true);
+	}
+
 	protected <T> T getBean(Class<T> requiredType) {
 		Map beansOfType = getApplicationContext().getBeansOfType(requiredType);
 		if (beansOfType.size() == 1) {
