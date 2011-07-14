@@ -14,6 +14,10 @@ public class DicePage extends WebPage {
 	
 	public DicePage(PageParameters pageParameters) {
 
+		Model<Integer> counter = Model.of(diceCount);
+		Label label = new Label("diceCounter",counter);
+		label.setOutputMarkupId(true);
+
 		Form<Integer> form = new Form<Integer>("diceForm")
 		{
 			@Override
@@ -21,10 +25,6 @@ public class DicePage extends WebPage {
 				
 			}
 		};
-
-		Model<Integer> counter = Model.of(diceCount);
-		Label label = new Label("diceCounter",counter);
-		label.setOutputMarkupId(true);
 
 		form.add(new Button("dicePlus", Model.of("+")) {
 			@Override
