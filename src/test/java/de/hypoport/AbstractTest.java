@@ -32,6 +32,6 @@ public abstract class AbstractTest extends AbstractTransactionalDataSourceSpring
 
 	@Override
 	protected String[] getConfigLocations() {
-		return new String[] { "classpath:/de/hypoport/yatwitter/dbconfig/persistence.xml" };
+		return new String[] { "classpath:/de/hypoport/yatwitter/dbconfig/persistence_test.xml" };
 	}
 }

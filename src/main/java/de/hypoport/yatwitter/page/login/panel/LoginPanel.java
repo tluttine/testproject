@@ -10,17 +10,28 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.hypoport.yatwitter.dao.UserDao;
+import com.google.java.contract.Invariant;
+import com.google.java.contract.Requires;
+
+import de.hypoport.yatwitter.dao.IUserDao;
 import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.page.register.RegisterPage;
 import de.hypoport.yatwitter.page.tweet.TwitterPage;
 import de.hypoport.yatwitter.session.TwitterSession;
 
+@Invariant({ "userDao != null", "callOnBeforeRenderIfNotVisible() == true" })
 public final class LoginPanel extends Panel {
 
-	@SpringBean(name = UserDao.BEAN_ID)
-	private UserDao userDao;
+	@SpringBean(name = IUserDao.BEAN_ID)
+	private IUserDao userDao;
 
+	@Requires({ "id != null", "userDao != null" })
+	public LoginPanel(String id, IUserDao userDao) {
+		this(id);
+		this.userDao = userDao;
+	}
+
+	@Requires({ "id != null" })
 	public LoginPanel(String id) {
 		super(id);
 
@@ -32,7 +43,7 @@ public final class LoginPanel extends Panel {
 				final User loginData = getModelObject();
 				User loginDataDb = userDao.get(loginData.getName());
 				if (null == loginDataDb) {
-					warn("Der Benutzer existiert noch nicht in der Datenbank.");
+					error("Der Benutzer existiert noch nicht in der Datenbank.");
 					return;
 				}
 
@@ -78,6 +89,6 @@ public final class LoginPanel extends Panel {
 	protected void onBeforeRender() {
 		super.onBeforeRender();
 
-		setVisible(!TwitterSession.get().hasValidLogin());
+		setVisible(!TwitterSession.hasValidLogin());
 	}
 }

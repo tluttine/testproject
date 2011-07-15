@@ -4,25 +4,21 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.Model;
 
 import de.hypoport.kaempke.model.MyUser;
 import de.hypoport.kaempke.view.UserView;
 
 public final class UserPresenter implements Serializable {
 
-	/**
-	 * Display
-	 * 
-	 * @author kaempke
-	 * 
-	 */
+	private final UserPresenter.Display display;
+	private MyUser selectedUser;
+	private final List<MyUser> users = new ArrayList<MyUser>();
+
 	public interface Display {
 		void clearForm();
 
@@ -55,27 +51,11 @@ public final class UserPresenter implements Serializable {
 		void setWarningMessage(String warning);
 	}
 
-	/**
-	 * Fields
-	 */
-	private final UserPresenter.Display display;
-	private MyUser selectedUser;
-	private final List<MyUser> users = new ArrayList<MyUser>();
-
-	/**
-	 * Constructor
-	 * 
-	 * @param display
-	 */
 	public UserPresenter(UserPresenter.Display display) {
-		assert null != display;
 		this.display = display;
 		bind();
 	}
 
-	/**
-	 * Actions
-	 */
 	public void createNewUserAction() {
 		selectedUser = null;
 		display.clearForm();
@@ -83,6 +63,7 @@ public final class UserPresenter implements Serializable {
 		display.setInfoMessage("Bitte geben Sie die Daten des neuen Benutzers ein.");
 	}
 
+	
 	public void removeAction() {
 		if (null == selectedUser) {
 			display.setWarningMessage("Es wurde kein Benutzer zum löschen ausgewählt.");
@@ -90,19 +71,32 @@ public final class UserPresenter implements Serializable {
 		}
 
 		assert users.contains(selectedUser);
+		removeUser();
+	}
+	
+	public void saveAction(AjaxRequestTarget target) {
+		if (!displayHasValidForm(target)) {
+			return;
+		}
+
+		save();
+
+	}
+
+	private void removeUser() {
 		users.remove(selectedUser);
 		display.clearForm();
 		display.clearSelection();
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich entfernt.");
 		selectedUser = null;
 		display.setUsers(users);
+		
+		
 	}
 
-	public void saveAction(AjaxRequestTarget target) {
-		if (!displayHasValidForm(target)) {
-			return;
-		}
+	
 
+	private void save() {
 		final String firstname = display.getFirstname();
 		final String lastname = display.getLastname();
 
@@ -122,13 +116,13 @@ public final class UserPresenter implements Serializable {
 		final int selectedUserIndex = users.indexOf(selectedUser);
 		display.setSelectedIndex(selectedUserIndex);
 		display.setInfoMessage("Der Benutzer " + selectedUser.getFirstname() + " " + selectedUser.getLastname() + " wurde erfolreich gespeichert.");
-
 	}
 
 	/**
 	 * Display bindings
 	 */
 	private void bind() {
+		
 		display.getFirstnameTextfield().add(new AjaxFormComponentUpdatingBehavior("onBlur") {
 
 			@Override
@@ -251,13 +245,13 @@ public final class UserPresenter implements Serializable {
 	}
 
 	private void onFocusFirstname(AjaxRequestTarget target) {
-		display.getFirstnameTextfield().add(new AttributeModifier("style", true, Model.of("background-color:#cccccc")));
+		display.getFirstnameTextfield().add(UserView.TEXTFIELD_DEFAULT_MODIFIER);
 		target.addComponent(display.getFirstnameTextfield());
 		display.setInfoMessage("Der Nachname wird zur Anzeige in der Benutzerliste benötigt..");
 	}
 
 	private void onFocusLastname(AjaxRequestTarget target) {
-		display.getLastnameTextField().add(new AttributeModifier("style", true, Model.of("background-color:#cccccc")));
+		display.getLastnameTextField().add(UserView.TEXTFIELD_DEFAULT_MODIFIER);
 		target.addComponent(display.getLastnameTextField());
 		display.setInfoMessage("Der Vorname wird zur Anzeige in der Benutzerliste benötigt..");
 	}

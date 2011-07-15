@@ -10,22 +10,22 @@ import de.hypoport.yatwitter.dto.User;
 
 public class UserDaoTest extends AbstractTest {
 
-	private UserDao userDao;
+	private IUserDao userDao;
 
 	@Before
 	public void before() {
-		userDao = getBean(UserDao.BEAN_ID, UserDao.class);
+		userDao = getBean(IUserDao.BEAN_ID, IUserDao.class);
 	}
 
 	@Test
 	public void testNoUsers() {
-		userDao = getBean(UserDao.BEAN_ID, UserDao.class);
+		userDao = getBean(IUserDao.BEAN_ID, IUserDao.class);
 		assertTrue(userDao.findAll(0, 100).isEmpty());
 	}
 
 	@Test
 	public void testUserAddition() {
-		userDao = getBean(UserDao.BEAN_ID, UserDao.class);
+		userDao = getBean(IUserDao.BEAN_ID, IUserDao.class);
 		String username = "Steffen";
 		String password = "123456";
 		userDao.save(new User(username, password));

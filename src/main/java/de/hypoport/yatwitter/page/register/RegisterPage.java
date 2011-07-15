@@ -11,7 +11,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import de.hypoport.yatwitter.dao.UserDao;
+import de.hypoport.yatwitter.dao.IUserDao;
 import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.model.RegisterData;
 import de.hypoport.yatwitter.page.AbstractBasePage;
@@ -24,8 +24,8 @@ public final class RegisterPage extends AbstractBasePage {
 	private Form<RegisterData> registerDataForm;
 	private final IModel<RegisterData> registerFormModel = new CompoundPropertyModel<RegisterData>(new RegisterData());
 
-	@SpringBean(name = UserDao.BEAN_ID)
-	private UserDao loginDataDao;
+	@SpringBean(name = IUserDao.BEAN_ID)
+	private IUserDao loginDataDao;
 
 	public RegisterPage() {
 		initializeComponents();

@@ -159,6 +159,7 @@ public class UserView extends AbstractView implements UserPresenter.Display {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> userForm) {
 				presenter.createNewUserAction();
+				// new FeedbackEvent
 				// target.addComponent(feedbackPanel);
 				target.addComponent(form);
 			}
