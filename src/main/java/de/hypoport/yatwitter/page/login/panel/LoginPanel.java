@@ -10,28 +10,22 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import com.google.java.contract.Invariant;
-import com.google.java.contract.Requires;
-
 import de.hypoport.yatwitter.dao.IUserDao;
 import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.page.register.RegisterPage;
 import de.hypoport.yatwitter.page.tweet.TwitterPage;
 import de.hypoport.yatwitter.session.TwitterSession;
 
-@Invariant({ "userDao != null", "callOnBeforeRenderIfNotVisible() == true" })
 public final class LoginPanel extends Panel {
 
 	@SpringBean(name = IUserDao.BEAN_ID)
 	private IUserDao userDao;
 
-	@Requires({ "id != null", "userDao != null" })
 	public LoginPanel(String id, IUserDao userDao) {
 		this(id);
 		this.userDao = userDao;
 	}
 
-	@Requires({ "id != null" })
 	public LoginPanel(String id) {
 		super(id);
 
