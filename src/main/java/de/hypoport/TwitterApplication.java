@@ -5,7 +5,6 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import de.hypoport.kaempke.MyHomePage;
 import de.hypoport.yatwitter.authority.TwitterAuth;
 import de.hypoport.yatwitter.dto.User;
 import de.hypoport.yatwitter.listener.TwitterAuthListener;
@@ -33,7 +32,8 @@ public class TwitterApplication extends WebApplication {
 	 */
 	@Override
 	public Class<? extends WebPage> getHomePage() {
-		return MyHomePage.class;
+//		leave this and set the link in StartPagePanel.java instead
+		return StartPage.class;
 	}
 
 	@Override
