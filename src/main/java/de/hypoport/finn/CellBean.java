@@ -10,56 +10,61 @@ public class CellBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public int row;
-	public int col;
-	public int rowCount, colCount;
+	private int _row, _col;
+	private int _rowCount, _colCount;
+	private boolean _lightOn = false;
 	
 	public CellBean(int row, int col, int rowCount, int colCount) {
-		this.row = row;
-		this.col = col;
-		this.rowCount = rowCount;
-		this.colCount = colCount;
+		_row = row;
+		_col = col;
+		_rowCount = rowCount;
+		_colCount = colCount;
 	}
 	
 	public int getCellNumber() {
-		return row * colCount + col;
+		return _row * _colCount + _col;
 	}
 
 	public int getRow() {
-		return row;
+		return _row;
 	}
 
 	public void setRow(int row) {
-		this.row = row;
+		this._row = row;
 	}
 
 	public int getCol() {
-		return col;
+		return _col;
 	}
 
 	public void setCol(int col) {
-		this.col = col;
+		this._col = col;
+	}
+
+	
+	public boolean isLightOn() {
+		return _lightOn;
 	}
 
 	@Override
 	public String toString() {
-		return "CellBean [row=" + row + ", col=" + col + "]";
+		return "CellBean [row=" + _row + ", col=" + _col + "]";
 	}
 
 	public List<Integer> getNeighbours() {
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		if (row > 0) { // upper neighbour
-			result.add((row - 1) * colCount + col);
+		if (_row > 0) { // upper neighbour
+			result.add((_row - 1) * _colCount + _col);
 		}
-		if (col > 0) { //left neighbour
-			result.add((row * colCount) + col - 1);
+		if (_col > 0) { //left neighbour
+			result.add((_row * _colCount) + _col - 1);
 		}
 		result.add(getCellNumber()); // me
-		if (col < colCount - 1) { //right neighbour
-			result.add((row * colCount) + col + 1);
+		if (_col < _colCount - 1) { //right neighbour
+			result.add((_row * _colCount) + _col + 1);
 		}
-		if (row < rowCount - 1) { // lower neighbour
-			result.add((row + 1) * colCount + col);
+		if (_row < _rowCount - 1) { // lower neighbour
+			result.add((_row + 1) * _colCount + _col);
 		}
 		return result;
 	}
@@ -67,6 +72,8 @@ public class CellBean implements Serializable{
 	private Integer calculateNeighbourNumbers() {
 		return null;
 	}
-	
-	
+
+	public void toggleLight() {
+		_lightOn = !_lightOn;
+	}
 }

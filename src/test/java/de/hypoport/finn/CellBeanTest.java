@@ -29,17 +29,17 @@ public class CellBeanTest extends TestCase{
 		CellBean upperRCorner = log.getCellBean(4);
 		CellBean lowerLCorner = log.getCellBean(20);
 		CellBean lowerRCorner = log.getCellBean(24);
-		assertEquals("row ulc", 0, upperLCorner.row);
-		assertEquals("col ulc", 0, upperLCorner.col);
+		assertEquals("row ulc", 0, upperLCorner.getRow());
+		assertEquals("col ulc", 0, upperLCorner.getCol());
 
-		assertEquals("row urc", 0, upperRCorner.row);
-		assertEquals("col urc", 4, upperRCorner.col);
+		assertEquals("row urc", 0, upperRCorner.getRow());
+		assertEquals("col urc", 4, upperRCorner.getCol());
 		
-		assertEquals("row llc", 4, lowerLCorner.row);
-		assertEquals("col llc", 0, lowerLCorner.col);
+		assertEquals("row llc", 4, lowerLCorner.getRow());
+		assertEquals("col llc", 0, lowerLCorner.getCol());
 		
-		assertEquals("row urc", 4, lowerRCorner.row);
-		assertEquals("col urc", 4, lowerRCorner.col);
+		assertEquals("row urc", 4, lowerRCorner.getRow());
+		assertEquals("col urc", 4, lowerRCorner.getCol());
 	}
 	
 	@Test

@@ -5,29 +5,33 @@ import java.util.Collections;
 import java.util.List;
 
 public class LightsOutGrid {
-	int rowCount, colCount;
+	int _rowCount, _colCount;
 	List<CellBean> grid = new ArrayList<CellBean>();
 	
 	public LightsOutGrid(int rowCount, int colCount) {
-		this.rowCount = rowCount;
-		this.colCount = colCount;
+		_rowCount = rowCount;
+		_colCount = colCount;
 		initGrid();
 	}
 	
 	private void initGrid() {
-		for (int row = 0; row < rowCount; row++) {
-			for (int col = 0; col < colCount; col++) {
-				grid.add(new CellBean(row, col, rowCount, colCount));
+		for (int row = 0; row < _rowCount; row++) {
+			for (int col = 0; col < _colCount; col++) {
+				grid.add(new CellBean(row, col, _rowCount, _colCount));
 			}
 		}
 	}
    
+	public int size() {
+		return _rowCount * _colCount;
+	}
+	
 	public int getRowCount() {
-		return rowCount;
+		return _rowCount;
 	}
 
 	public int getColCount() {
-		return colCount;
+		return _colCount;
 	}
 	
 	public CellBean getCellBean(int cellBeanNumber) {
