@@ -1,10 +1,11 @@
 package de.hypoport.finn;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LightsOutGrid {
+public class LightsOutGrid implements Serializable{
 	int _rowCount, _colCount;
 	List<CellBean> grid = new ArrayList<CellBean>();
 	

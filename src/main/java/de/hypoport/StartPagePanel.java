@@ -21,7 +21,7 @@ public class StartPagePanel extends Panel {
 		super(id);
 		add(new Label("label", Model.of("Choose the wanted startpage:")));
 		add(new BookmarkablePageLink<MyHomePage>("steffenStartPage", MyHomePage.class));
-		add(new BookmarkablePageLink<RandomNumberPage>("finnStartPage", LightsOutPage.class));
+		add(new BookmarkablePageLink<LightsOutPage>("finnStartPage", LightsOutPage.class));
 		add(new BookmarkablePageLink<MyHomePage>("tuomasStartPage", MyHomePage.class));
 		add(new BookmarkablePageLink<LoginPage>("twitterStartPage", LoginPage.class));
 	}

@@ -1,7 +1,6 @@
 package de.hypoport.finn;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,15 +11,18 @@ import org.apache.wicket.markup.html.image.resource.DefaultButtonImageResource;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+@SuppressWarnings("hiding")
 public class ImageToggleLink<Boolean> extends AjaxLink<Boolean> {
 
 	private CellBean _cell;
-	private List<ImageToggleLink<Boolean>> _neighbours = Collections.EMPTY_LIST;
+	private List<ImageToggleLink<Boolean>> _neighbours = Collections.emptyList();
 
+	@SuppressWarnings("unchecked")
 	public ImageToggleLink(String id, CellBean cell) {
-		super(id, (IModel<Boolean>) Model.of(cell.isLightOn()));
+		super(id, ((IModel<Boolean>) Model.of(cell.isLightOn())));
 		_cell = cell;
 		add(makeImage());
+		setOutputMarkupId(true);
 	}
 
 	private Image makeImage() {
@@ -37,6 +39,11 @@ public class ImageToggleLink<Boolean> extends AjaxLink<Boolean> {
 	
 	public void toggleCell() {
 		_cell.toggleLight();
+		setDefaultModelObject(_cell.isLightOn());
+	}
+	
+	public List<Integer> getCellNeighbours() {
+		return _cell.getNeighbours();
 	}
 
 	@Override

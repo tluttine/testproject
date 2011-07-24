@@ -2,6 +2,7 @@ package de.hypoport.finn;
 
 import java.awt.Color;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -16,13 +17,29 @@ import org.apache.wicket.model.Model;
 
 public class LightsOutPage extends WebPage {
 
+	private int _startLevel = 5;
 	private LightsOutGrid _log;
 	private GridView<CellBean> _grid;
+	private IModel<Integer> _clickCount;
+	private Label _clickCountLabel;
 	
 	public LightsOutPage() {
 		super();
 		add(new Label("titel", Model.of("The magnificent Lights Out Game")));
 		_log = new LightsOutGrid(5, 5);
+		_clickCount = Model.of(0);
+		
+		add(new Label("optimal", "Optimal solution clickcount = " + _startLevel));
+		_clickCountLabel = new Label("clickCount", "Actual clickcount = " + _clickCount.getObject());
+		add(_clickCountLabel);
+		
+		Random random = new Random(System.currentTimeMillis()); 
+		for (int i = 0; i < _startLevel; i++) {
+			CellBean cell = _log.getCellBean(random.nextInt(_log.size()));
+			for (Integer neighbour : cell.getNeighbours()) {
+				_log.getCellBean(neighbour).toggleLight();
+			}
+		}
 		
 		IDataProvider<CellBean> cells = new IDataProvider<CellBean>() {
 			@Override
@@ -33,7 +50,7 @@ public class LightsOutPage extends WebPage {
 			public int size() {
 				return _log.size();
 			}
-
+			
 			@Override
 			public IModel<CellBean> model(CellBean object) {
 				return Model.of(object);
@@ -44,22 +61,25 @@ public class LightsOutPage extends WebPage {
 				return _log.getGrid().iterator();
 			}
 		};
-		
+
 		_grid = new GridView<CellBean>("grid", cells) {
-			@Override
-			protected void populateItem(final Item<CellBean> item) {
-				Link link = new Link("link") {
-					@Override
-					public void onClick() {
-						CellBean cell = item.getModelObject();
-						for (Integer neighbour : cell.getNeighbours()) {
-							_log.getCellBean(neighbour).toggleLight();
+				@Override
+				protected void populateItem(final Item<CellBean> item) {
+					Link<CellBean> link = new Link<CellBean>("link") {
+						@Override
+						public void onClick() {
+							CellBean cell = item.getModelObject();
+							Label ccl = LightsOutPage.this._clickCountLabel;
+							_clickCount.setObject(_clickCount.getObject() + 1);
+							ccl.setDefaultModelObject("Actual clickcount = " + _clickCount.getObject());
+							for (Integer neighbour : cell.getNeighbours()) {
+								_log.getCellBean(neighbour).toggleLight();
+							}
 						}
-					}
-				};
-				link.add(makeImage(item.getModelObject()));
-				item.add(link);
-			}
+					};
+					link.add(makeImage(item.getModelObject()));
+					item.add(link);
+				}
 
 			@Override
 			protected void populateEmptyItem(Item<CellBean> item) {
